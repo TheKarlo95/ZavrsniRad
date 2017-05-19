@@ -1,0 +1,14 @@
+\select@language {croatian}
+\contentsline {chapter}{\numberline {1}Uvod}{1}
+\contentsline {chapter}{\numberline {2}Tehnologije poslu\IeC {\v z}iteljskih dojava}{2}
+\contentsline {section}{\numberline {2.1}WebSocket}{2}
+\contentsline {section}{\numberline {2.2}Firebase Cloud Messaging (FCM)}{2}
+\contentsline {section}{\numberline {2.3}Apple Push Notification Service}{2}
+\contentsline {section}{\numberline {2.4}Flash XMLSocket relays}{3}
+\contentsline {section}{\numberline {2.5}Comet}{3}
+\contentsline {subsection}{\numberline {2.5.1}Streaming}{3}
+\contentsline {subsection}{\numberline {2.5.2}Long Polling}{3}
+\contentsline {section}{\numberline {2.6}Usporedba tehnologija}{3}
+\contentsline {chapter}{\numberline {3}Arhitektura aplikacije}{4}
+\contentsline {chapter}{\numberline {4}Implementacija}{5}
+\contentsline {chapter}{\numberline {5}Zaklju\IeC {\v c}ak}{6}

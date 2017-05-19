@@ -1,0 +1,100 @@
+\documentclass[times, utf8, zavrsni]{fer}
+\usepackage{booktabs}
+
+\begin{document}
+
+\thesisnumber{5191}
+\title{Primjena paradigme poslužiteljskih dojava u razvoju web-usluga}
+\author{Karlo Vrbić}
+
+\maketitle
+
+% Ispis stranice s napomenom o umetanju izvornika rada. Uklonite naredbu \izvornik ako želite izbaciti tu stranicu.
+\izvornik
+
+% Dodavanje zahvale ili prazne stranice. Ako ne želite dodati zahvalu, naredbu ostavite radi prazne stranice.
+\zahvala{}
+
+\tableofcontents
+
+\chapter{Uvod}
+U 21. stoljeću svjedočimo sve bržem razvoju tehnologija u svim područjima, a najviše na području informacijskih tehnologija i mobilnih tehnologija. Danas je nezamisliv život bez mobilnih uređaja poput prijenosnih računala, pametnih mobitela, tableta, pametnih satova, itd. To potvrđuje podatak da 60\% ljudi posjeduje mobilni telefon i da danas većina ljudi internetu pristupa pomoću mobilnih uređaja. Do tako drastičnog porasta broja korisnika mobilnih uređaja došlo je ponajviše razvojem tzv. pametnih mobitela. Danas tržištem dominiraju Android i iOS pametni mobilni uređaji koji korisniku pružaju mnoge mogućnosti koje nisu bile dostupne tradicionalnim mobilnim telefonima. Uz razvoj mobilnih mreža i bežičnog interneta korisnicima je omogućeno da budu spojeni na internet bez obzira na vrijeme i mjesto gdje se nalaze. Ti podatci drastično mijenjaju način na koji korisnici koriste svoje uređaje. Od uređaja se više ne zahtjeva samo da može pristupiti informacijama bitnih korisniku nego i da može primati informacije iz više izvora u tren kada te informacije budu dostupne. Standardna klijentsko-poslužnička arhitektura ne zadovoljava tim uvjeta i u tome je motivacija za razvoj tehnologija poslužiteljskih dojava.
+
+
+\chapter{Tehnologije poslužiteljskih dojava}
+
+\section{WebSocket}
+\begin{itemize}
+    \item potpuno dvosmjerna komunikacija na jednoj TCP vezi
+    \item standardiziran od strane IETF-a kao RFC 6455
+    \item HTML5 WebSocket API
+    \item podržavaju Google Chrome, Microsoft Edge, Internet Explorer, Firefox, Safari i Opera
+\end{itemize}
+
+\section{Firebase Cloud Messaging (FCM)}
+\begin{itemize}
+    \item jedna aktivna konekcija na Google-ove poslužitelje koju sve aplikacije dijele
+    \item poslužitelj šalje zahtjev na Google-ov poslužitelju, taj poslužitelj zatim šalje dojavu klijentu
+    \item klijenti koriste jedinstveni kod za identifikaciju koji objave Google-ovom poslužitelju.
+    \item podržavaju Android, iOS i Google Chrome
+    \item prethodnici AC2DM(Android Cloud 2 Device Messaging) i GCM(Google Cloud Messaging)
+\end{itemize}
+
+\section{Apple Push Notification Service}
+\begin{itemize}
+    \item sličan princip rada kao i FCM
+    \item podržava iOS
+\end{itemize}
+
+\section{Flash XMLSocket relays}
+\begin{itemize}
+    \item klijent kroz prvu vezu dobije jedinstveni kod od poslužitelja, poslije toga koristeći taj kod ostvaruje drugu vezu sa poslužiteljem, te nakon toga stvara se tzv. Flash socket koji ima uvijek otvorenu vezu.
+    \item koristi se u chat aplikacijama
+\end{itemize}
+
+\section{Comet}
+\begin{itemize}
+    \item model u kojem dugotrajni HTTP zahtjev omogućuje web poslužitelju da ``gura'' podatke u preglednik
+\end{itemize}
+
+\subsection{Streaming}
+\begin{itemize}
+    \item otvara se trajna veza s klijentskog web preglednika prema poslužitelju. Svaka dojava se obrađuje po redoslijedu dolaska. Ni poslužitelj ni klijent ne zatvaraju vezu.
+    \item ostvaruje se skrivenim iframe HTML elementom ili XMLHttpRequest AJAX objektom
+\end{itemize}
+
+\subsection{Long Polling}
+\begin{itemize}
+    \item klijent šalje zahtjev poslužitelj, uobičajno koristeći AJAX i čeka odgovor od poslužitelja. Kada poslužitelj odgovori klijent obradi zahtjev i pošalje novi zahtjev poslužitelju
+\end{itemize}
+
+\section{Usporedba tehnologija}
+\begin{itemize}
+    \item razlike i sličnosti tehnologija obrađenih u ovom rad(možda prebaciti u prijašnje section-e)
+\end{itemize}
+
+\chapter{Arhitektura aplikacije}
+\chapter{Implementacija}
+
+
+\chapter{Zaključak}
+Zaključak.
+
+\bibliography{literatura}
+\bibliographystyle{fer}
+
+\begin{sazetak}
+Sažetak na hrvatskom jeziku.
+
+\kljucnerijeci{Ključne riječi, odvojene zarezima.}
+\end{sazetak}
+
+% TODO: Navedite naslov na engleskom jeziku.
+\engtitle{Application of Server Push Notifications in Web Service Development}
+\begin{abstract}
+Abstract.
+
+\keywords{Keywords.}
+\end{abstract}
+
+\end{document}
