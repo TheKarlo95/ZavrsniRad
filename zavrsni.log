@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.5.26)  28 MAY 2017 20:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.5.26)  31 MAY 2017 18:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -740,13 +740,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [3] (./zavrsni.toc
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 2.
-)
+ [4
+
+])
 \tf@toc=\write3
 \openout3 = `zavrsni.toc'.
 
- [4
-
-]
+ [5]
 Poglavlje 1.
 [1
 
@@ -766,37 +766,65 @@ Overfull \hbox (71.20313pt too wide) in paragraph at lines 74--75
 [][][][][][][][][][][][][] 
  []
 
-[5] [6] [7] [8] [9]
+[5]
+
+LaTeX Warning: File `img/FER_logo.jpg' not found on input line 105.
+
+
+! Package pdftex.def Error: File `img/FER_logo.jpg' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.105 ...ludegraphics[width=2cm]{img/FER_logo.jpg}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 105.
+(/usr/share/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 106.
+ [6] [7] [8] [9]
 Poglavlje 3.
 [10
 
-]
+] [11]
 Poglavlje 4.
-[11
-
-]
-Poglavlje 5.
-No file zavrsni.bbl.
 [12
 
-] [13] (./zavrsni.aux) ) 
+] [13] [14]
+Poglavlje 5.
+No file zavrsni.bbl.
+[15
+
+] [16] (./zavrsni.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 7499 strings out of 493013
- 101279 string characters out of 6139317
+ 7542 strings out of 493013
+ 101838 string characters out of 6139317
  182516 words of memory out of 5000000
- 10898 multiletter control sequences out of 15000+600000
- 48606 words of font info for 68 fonts, out of 8000000 for 9000
+ 10931 multiletter control sequences out of 15000+600000
+ 54752 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,6n,40p,1848b,1530s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/thekarlo95/.texlive/texmf-var/fonts/pk/ljfour/p
-ublic/cm/cmsy10.720pk>{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/
-share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fon
-ts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/u
-tmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on zavrsni.pdf (16 pages, 75343 bytes).
+ 43i,6n,40p,1848b,1536s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc} </home/thekarlo95/.texliv
+e/texmf-var/fonts/pk/ljfour/public/cm/cmsy10.720pk></usr/share/texmf-dist/fonts
+/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/u
+hvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/shar
+e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type
+1/urw/times/utmr8a.pfb>
+Output written on zavrsni.pdf (20 pages, 91683 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
- 54 compressed objects within 1 object stream
+ 95 PDF objects out of 1000 (max. 8388607)
+ 66 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

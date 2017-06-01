@@ -16,6 +16,12 @@
 \contentsline {subsection}{\numberline {2.4.2}Slanje dojava i podataka}{8}
 \contentsline {chapter}{\numberline {3}Arhitektura aplikacije}{10}
 \contentsline {section}{\numberline {3.1}Ideja}{10}
-\contentsline {section}{\numberline {3.2}Zahtjevi}{10}
-\contentsline {chapter}{\numberline {4}Implementacija}{11}
-\contentsline {chapter}{\numberline {5}Zaklju\IeC {\v c}ak}{12}
+\contentsline {section}{\numberline {3.2}Protokol za razmjenu podataka}{10}
+\contentsline {section}{\numberline {3.3}Autentikacija}{10}
+\contentsline {section}{\numberline {3.4}Spremanje podataka}{11}
+\contentsline {section}{\numberline {3.5}Poslu\IeC {\v z}iteljske dojave}{11}
+\contentsline {chapter}{\numberline {4}Implementacija}{12}
+\contentsline {section}{\numberline {4.1}Poslu\IeC {\v z}iteljske dojave}{12}
+\contentsline {section}{\numberline {4.2}Klijent}{12}
+\contentsline {section}{\numberline {4.3}Poslu\IeC {\v z}itelj}{13}
+\contentsline {chapter}{\numberline {5}Zaklju\IeC {\v c}ak}{15}

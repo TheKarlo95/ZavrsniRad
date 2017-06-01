@@ -98,7 +98,14 @@ Prva verzija protokola nazvala se AC2DM(engl. Android Cloud to Device Messaging)
 \subsection{Prijava na uslugu}
 Firebase Cloud Messaging protokol radi na način da klijent koji na svom uređaju ima barem jednu aplikaciju koju koristi FCM protokol mora ostvariti vezu sa FCM poslužiteljima. Na Android uređajima svaka aplikacija mora imati servis koji će inicirati vezu sa FCM poslužiteljem i dobiti token jedinstven za svaku aplikaciju. Nakon što klijent dobije token on ga šalje svom poslužitelju koji bi trebao token spremiti ukoliko planira slati dojave tom klijentu. 
 
-Klijent isto tako ima mogućnost prijave na razne teme. Teme su skupine klijenata koji žele primati iste dojave a svaka tema se identificira pomoću svog jedinstvenog imena. FCM poslužitelj pamti koji klijenti su se pretplatili na koje teme te koriste tu informaciju prilikom slanja dojave. 
+Klijent isto tako ima mogućnost prijave na razne teme. Teme su skupine klijenata koji žele primati iste dojave a svaka tema se identificira pomoću svog jedinstvenog imena. FCM poslužitelj pamti koji klijenti su se pretplatili na koje teme te koriste tu informaciju prilikom slanja dojave.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=2cm]{img/FER_logo.jpg}
+\caption{Logo FER-a}
+\label{fig:fer-logo}
+\end{figure}
 
 \subsection{Slanje dojava i podataka}
 Kada poslužitelj poželi poslati dojavu korisniku on za to koristi token koji je prije toga dobio i FCM poslužitelje. Na FCM poslužitelj šalje JSON objekt preko HTTP ili XMLL protokola. JSON objekt se sastoji od dva atributa: ``to'' ili ``condition'', ``notification'' i ``data''.
@@ -155,28 +162,63 @@ Tiha dojava označava aplikaciji da ima dostupne dojave i da ih može dohvatiti 
 \chapter{Arhitektura aplikacije}
 
 \section{Ideja}
-Ideja je napraviti aplikaciju koja korisniku omogućava praćenje događaja poput koncerata, rođendana i sl. i informacija vezanih uz taj događaj. Isto tako korisnici trebaju imati mogućnost kreiranja događaja za koje mogu definirati nekakve atribute poput naziva događaja, opisa, datuma i sl. Svi pratioci koji prate određeni događaj bi trebali dobiti dojavu kada se kreator događaja odluči izmijeniti neki od atributa događaja ili odluči poslati poruku vezanu uz taj događaj. Tako će se dobiti aplikacija koja će biti koristan alat pri organizaciji manjih događaja ali i većih događaja. Aplikacija se lako može pretvoriti u manju društvenu mrežu na kojoj će fokus biti na događajima, a ne na objavama kao većina društvenih mreža.
+Ideja je napraviti aplikaciju koja korisniku omogućava praćenje događaja poput koncerata, rođendana i sl. i informacija vezanih uz taj događaj. Isto tako korisnici trebaju imati mogućnost kreiranja događaja za koje mogu definirati nekakve atribute poput naziva događaja, opisa, datuma i sl. Svi pratioci koji prate određeni događaj bi trebali dobiti dojavu kada se kreator događaja odluči izmijeniti neki od atributa događaja ili odluči poslati poruku vezanu uz taj događaj. Tako će se dobiti aplikacija koja će biti koristan alat pri organizaciji manjih događaja ali i većih događaja. Aplikacija se lako može pretvoriti u manju društvenu mrežu na kojoj će fokus biti na događajima, a ne na objavama kao većina društvenih mreža. Aplikacija se sastoji od poslužiteljskog dijela i klijentskog dijela.
 
-\section{Zahtjevi}
+\section{Protokol za razmjenu podataka}
 
-Aplikacija se sastoji od poslužiteljskog dijela i klijentskog dijela. Poslužiteljski dio je odgovoran za autentikaciju korisnika, za obradu podataka i za slanje dojava dok je klijentski dio odgovoran za priakz podataka i primanje dojava.
+Za funkcioniranje aplikacije mora se implementirati protokol za razmjenu podataka između poslužitelja i klijenta. Većina razmjene podataka u ovoj aplikaciji otpada na klijentske zahtjeve i poslužiteljske odgovore i stoga će se koristiti HTTP/1.1 koji će u svom tijelu sadržavati poruku u JSON formatu. HTTP i JSON su standardne tehnologije kada su u pitanju slične aplikacije poput ove jer je prijenos podataka jednostavan i ne koristi puno internetskog prometa.
 
-Aplikacija treba imati mogućnosti registracije i prijave kako bi raspoznala korisnike i pamtila njihove odabire. Pri registraciji korisnici bi trebali unijeti svoje osobne podatke, ime njihovog budućeg računa i lozinku.
+\section{Autentikacija}
 
-Poslužiteljske dojave se ovdje koriste kao način na koji se obavješćuje pretplatnika o izmjenama u događajima koje prate. Pošto izmjene mogu biti veoma bitne korisniku vrlo je bitno da se poruke dostave u što kraćem roku ali i da se ne izgube ukoliko je korisnikov Android uređaj ugašen.
+Aplikacija treba imati mogućnosti registracije i prijave kako bi raspoznala korisnike i pamtila njihove odabire. Svaki korisnik bi trebao imati jedinstveno korisničko ime. Prilikom otvaranja klijentske aplikacije korisnika se mora zatražiti da unese svoje korisničko ime i lozinku. Ako se radi o novom korisniku mora mu se ponuditi mogućnost registracije, a pri registraciji korisnici bi trebali unijeti svoje osobne podatke, korisničko ime njihovog budućeg računa i lozinku. Nakon što unese korisničko ime i lozinku korisnik pomoću klijentske aplikacije šalje zahtjev prema poslužitelju koji će utvrditi da li se radi o ispravnim podacima. Ako se radi o ispravnim podacima poslužitelj će izračunati ``token'' koristeći OAuth2 standard. Tijekom svoje komunikacije sa poslužiteljem, klijent će koristiti dobiveni token kako bi poslužitelj svaki put mogao provjeriti da li se zaista radi o pravom korisniku.
 
-Korisnik na klijentskoj aplikaciji isto tako mora biti u mogućnosti pretraživati događaje da bi ih mogao označiti kao događaje koje prati.
+\section{Spremanje podataka}
+
+Poslužiteljski dio je odgovoran za spremanje svih podataka vezanih uz aplikaciju. Za spremanje podataka koristiti ćemo relacijske baze podataka, a za lakši rad i lakše pristupanje bazi podataka koristiti ćemo objektno-relacijsko mapiranje(engl. object-relational mapping).
+
+\section{Poslužiteljske dojave}
+
+Poslužiteljske dojave se ovdje koriste kao način na koji se obavješćuje pretplatnika o izmjenama u događajima koje prate. Pošto izmjene mogu biti veoma bitne korisniku vrlo je bitno da se poruke dostave u što kraćem roku ali i da se ne izgube ukoliko klijent nije spojen na poslužitelj u tom trenutku(npr. korisnikov uređaj nema pristup internetu ili je ugašen).
 
 \chapter{Implementacija}
 
+\section{Poslužiteljske dojave}
+
+Prilikom odabira tehnologije za poslužiteljske dojave velika pažnja je bila na brzini slanja dojava i načinu na koji određena tehnologija rješava problem korisnika koji nije spojen na poslužitelj u trenutku dolaska dojave. Isto tako bitno je koje sve platforme ta tehnologija podržava jer bi u budućnosti mogli poželjeti izraditi klijentsku aplikaciju za neku drugu platformu.
+
+Odabrao sam Firebase Cloud Messaging servis. Firebase Cloud Messaging pruža mogućnost brzog slanja dojava, a ako dojavu nije moguće poslati u trenutku kada se dojava pojavila(npr. korisnik nije spojen na internet ili je ugasio uređaj) FCM servis će automatski spremiti dojavu i poslati je čim korisnik ponovo ostvari vezu sa FCM poslužiteljem. Velika prednost Firebase-ovog servisa je ta da je više-platformski. FCM podržava Android i iOS operativne sustave ali i klasične web aplikacije.
+
+\section{Klijent}
+
+Pri implementaciji klijenta odlučio sam se za Android platformu. Prednost naspram klasičnih web aplikacija je ta da klijent može imati stalne pozadinske procese koji će biti u mogućnosti primati dojave i kad korisnik ne koristi aplikaciju dok je prednost naspram iOS platforme ta da se pametni mobilni telefoni sa iOS operativnim sustavom manje koriste nego Android telefoni. U 4. kvartetu 2016. godine od svih prodanih mobilnih uređaja 81.7\% su bili pametni mobilni telefoni sa Android operativnim sustavom. Time Android dobiva prioritet pri izradi klijentske aplikacije.
+
+Za spajanje na poslužitelja koristio sam dvije knjižnice: OkHttp i Retrofit2. OkHttp je HTTP klijent koji uz mogućnost slanja HTTP zahtjeva koristi i bazen veza za smanjenje latencije zahtjeva, cache odgovora za sprečavanje ponovljenih zahtjeva te podržava HTTP/2 što je korisno ukoliko se bude mijenjao protokol u budućnosti. Retrofit2 je knjižnica koja se koristi za jednostavniju uporabu oblikovnog obrazca repozitorij kod repozitorija koji koristi HTTP vezu.
+
+Za svaku aplikaciju vrlo bitno je da je responzivna u svim trenucima. Kako bi rješavanju tog problema pristupili što lakše koristio sam knjižnicu RxJava2 koja nam omogućuje tzv. ``Reactive'' programiranje sa Java programskim jezikom. RxJava2 nam omogućuje da lako upravljamo dretvama i paraleliziramo poslove koje obavlja aplikacija. Da bi aplikacija bila brza i responzivna sve poslove koji bi mogli malo dulje trajati je poželjno raditi na posebnoj dretvi.
+
+Da bi omogućili klijentu vezu sa Firebase Cloud Messaging poslužiteljem moramo koristiti Android knjižnicu za FCM pomoću koje sam napravio servis koji će biti obaviješten kada korisnik primi dojavu. Taj servis će pri primljenoj dojavi, tu dojavu obraditi i na kraju obavijestiti korisnika sa obavijesti u traci za dojave.
+
+\section{Poslužitelj}
+
+Pri implementaciji poslužiteljskog dijela aplikacije koristio sam Java EE tehnologije zbog toga što su Java programi više-platformski, ali i zbog česte uporabe ove platforme u implementaciji velikih sustava za razne kompanije. Zbog dobre zastupljenosti danas za u ovoj tehnologiji za neke česte probleme postoje dobra i isprobana rješenja što uvelike smanjuje količinu rada sa moje strane.
+
+Za prihvaćanje zahtjeva sa klijenta i razvoj API-a koristio sam Jersey. Jersey je implementacija JAX-RS(Java API for RESTful Web Services) specifikacije koja je napravljen za lakšu implementaciju REST i sličnih API-a. Ovom metodom ne moramo ništa eksplicitno podešavati osim što moramo označiti koja metoda će se pokrenuti za koji tip zahtjeva.
+
+Spremanje podataka i pretraga tih podataka je najvažnija zadaća poslužiteljskog dijela programa. Za bazu podataka sam odabrao MySQL zbog toga što je to besplatna baza podataka otvorenog koda. MySQL je veoma popularna baza podataka i stoga ima veliku potporu zajednice pa je stoga primamljiv odabir naspram drugih besplatnih rješenja. Za rad sa bazom podataka sam koristio knjižnicu za objektno-relacijsko mapiranje Hibernate. Hibernate je implementacija JPA(Java persistency API) specifikacije koja koristi Java objekte za kreiranje tablica i spremanje podataka. Uz osnovne funkcionalnosti objektno-relacijsko mapiranja Hibernate podržava laku integraciju sa sustavima za cache-iranje poput EhCache-a. EhCache će spremati pozive prema bazi podataka u memoriju tako da će uvelike ubrzati rad sa bazama podataka koji često zna usporiti ostatak aplikacije.
+
+Prilikom interakcije sa klijentom bitno je da poslužitelj može pouzdano utvrditi identitet korisnika koji šalje upite i stoga sam koristio Apache Oltu knjižnicu. Apache Oltu podržava OAuth i OAuth2 protokole i ova knjićnica je veoma jednostavna za korištenje.
+
 \chapter{Zaključak}
-Zaključak.
+
+U ovom završnom radu predstavljena su tehnologije za poslužiteljske dojave, od starijih rješenja koja su imitirala poslužiteljske dojave poput ``long polling-a'' do novih tehnologija poput ``WebSocket-a'' i servisa poput ``Firebase Cloud Messaging-a''. Prikazano je kako se prvo problem poslužiteljskih dojava pokušao riješiti raznim domišljatim metodama korištenja HTTP-a, dok moderna rješenja uključuju nove protokole koji koriste TCP vezu za slanje u oba smjera.
+
+Prije izrade ovog rada malo toga sam znao o tome kako funkcioniraju poslužiteljske dojave i koje se tehnologije koriste. Tijekom pripreme i izrade ovog završnog rada naučio sam dosta o prijašnjim metodama imitacije poslužiteljskih dojava, ali i o modernim tehnologijama i uslugama. Osim učenja kroz proučavanje tehnologija sa ``Firebase Cloud Messaging-om'' sam se imao prilike više upoznati kroz praktični rad gdje sam paradigmu poslužiteljskih dojava koristio za dojavljivanja promjena na korisniku važnim događajima.
 
 \bibliography{literatura}
 \bibliographystyle{fer}
 
 \begin{sazetak}
-Sažetak na hrvatskom jeziku.
+Dolazak pametnih mobilnih telefona ali i drugih prijenosnih uređaja uvelike je promijenio način korištenja aplikacija. Korisnici danas zahtjevaju da informacija dolazi do njih čim bude dostupna umjesto da je oni moraju zahtijevati. Kroz ovaj rad predstavljeno je par načina na koji je se ovaj problem pokušao riješiti. Jedan od načina, Firebase Cloud Messaging, sam implementirao na Android platformi kako bi bolje shvatio način rada i integracije takvih i sličnih sustava u vlastitu aplikaciju.
 
 \kljucnerijeci{Ključne riječi, odvojene zarezima.}
 \end{sazetak}
@@ -184,7 +226,7 @@ Sažetak na hrvatskom jeziku.
 % TODO: Navedite naslov na engleskom jeziku.
 \engtitle{Application of Server Push Notifications in Web Service Development}
 \begin{abstract}
-Abstract.
+The arrival of smartphones and other portable devices has greatly changed the way the apps are used. Users today require information to be available as soon as it is available instead of having to request it manually. This work presents a few ways in which this problem has been tackled. I've implemented one of those services, Firebase Cloud Messaging, on an Android platform to better understand the way you work and integrate such and similar systems into your own application.
 
 \keywords{Keywords.}
 \end{abstract}
