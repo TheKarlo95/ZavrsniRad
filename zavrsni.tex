@@ -1,6 +1,7 @@
 \documentclass[times, utf8, zavrsni]{fer}
 
 \usepackage{booktabs}
+\usepackage{url}
 \usepackage{indentfirst}
 \usepackage{listings}
 
@@ -37,7 +38,7 @@ U 21. stoljeću svjedočimo sve bržem razvoju tehnologija u svim područjima, a
 \section{Comet}
 U početcima World Wide Web tehnologije internet preglednici za svaku stranicu poslao više zahtjeva prema poslužitelju, svaki zahtjev za jednu komponentu stranice, npr. HTML dokument, CSS dokument, skripte ili bilo koji drugi resurs koji se upotrebljavao na stranici. Preuzimanje stranice u dijelove podataka poznato je kao model stranica po stranica model\engl{Page-by-Page model}. Za dohvat novog sadržaja stranice stranica se trebala ponovo učitati.
 
-AJAX(Asynchronous Javascript and XML) tehnologija je donijela promjene i omogućila učitavanje dijelova stranice kroz asinkrone zahtjeve prema poslužitelju ali AJAX nije riješio sve probleme dinamičkih web stranica. Iako web preglednici sa AJAX-om imaju mogućnost zatražiti podatke sa servera i dinamički izmijeniti stranicu kada ti podatci stignu i dalje nisu imali mehanizam kojim bi znali da li server uopće ima nove podatke u slučajevima kada je to potrebno, npr. chat aplikacije. U takvim slučajevima se koristila tzv. \glqq polling\grqq\  tehnika.
+AJAX(Asynchronous Javascript and XML) tehnologija je donijela promjene i omogućila učitavanje dijelova stranice kroz asinkrone zahtjeve prema poslužitelju ali AJAX nije riješio sve probleme dinamičkih web stranica. Iako web preglednici sa AJAX-om imaju mogućnost zatražiti podatke sa servera i dinamički izmijeniti stranicu kada ti podatci stignu i dalje nisu imali mehanizam kojim bi znali da li server uopće ima nove podatke u slučajevima kada je to potrebno, npr. chat aplikacije. U takvim slučajevima se koristila tzv. \glqq polling\grqq\  tehnika.\citep{gravelle2009comet}
 
 \subsection{Polling}
 \glqq Polling\grqq\  tehnika je tehnika ostvarivanja poslužiteljskih dojava koja koristi periodičko slanje zahtjeva prema poslužitelju i na taj način doznaje da li poslužitelj ima relevantnih podataka koje bi klijent trebao prikazati. Ova tehnika ustvari nije prava \glqq push\grqq\  tehnologija jer bi takva tehnologija omogućila poslužitelju slanje podataka klijentu bez zahtjeva klijenta. Ovu tehniku možemo podijeliti na dvije kategorije: \glqq polling\grqq\  i \glqq long polling\grqq .
@@ -56,14 +57,14 @@ Sustavi koji upotrebljavaju \glqq polling\grqq\  tehniku su ne skalabilni jer ve
 \subsection{Streaming}
 Pored \glqq polling\grqq\  tehnika imamo i \glqq streaming\grqq\  tehniku ostvarivanja poslužiteljskih dojava. Ova tehnika se ostvaruje pomoću jedne veze koju klijent ostvari sa poslužiteljem koju potom poslužitelj koristi za slanje dojava klijentu. Ako se odlučimo za implementaciju ove tehnike imamo dvije opcije: korištenje metode skrivenih iframe-ova ili korištenje višestrukog odgovora pomoću XMLHttpRequest objekta koji se koristi pri slanju AJAX zahtjeva.
 
-\glqq iframe\grqq\  je HTML element koji se koristi za ugradnju dokumenta unutar drugog HTML dokumenta. Pri implementaciji streaming Comet tehnike može se koristiti skriveni iframe element čiji će \glqq src\grqq\  atribut pokazivati na URL s kojeg će poslužitelj slati dojave. Svaki put kada poslužitelj ima dojavu za klijenta on će tu dojavu zapakirati u Javascript skriptu koju će klijent dobiti kroz iframe element te će je potom izvršiti.
+\glqq iframe\grqq\  je HTML element koji se koristi za ugradnju dokumenta unutar drugog HTML dokumenta. Pri implementaciji streaming Comet tehnike može se koristiti skriveni iframe element čiji će \glqq src\grqq\  atribut pokazivati na URL s kojeg će poslužitelj slati dojave. Svaki put kada poslužitelj ima dojavu za klijenta on će tu dojavu zapakirati u Javascript skriptu koju će klijent dobiti kroz iframe element te će je potom izvršiti.\citep{carbou2011}
 
 \section{WebSocket}
 Povijesno, stvaranje web aplikacija koje trebaju dvosmjernu komunikaciju između klijenta i poslužitelja zahtijevala je korištenje HTTP-a na način na koji HTTP nije namijenjen. Jednostavnije riješenje bi bilo da se koristi jedna TCP veza. Upravo na tome je radila IETF(engl. Internet Engineering Task Force) i objavila pod RFC 6455 specifikacijom. Protokol se zove WebSocket i zajedno sa WebSocket API-ijem daje alternativu \glqq pollingu\grqq\  i sličnim tehnikama. WebSocket protokol pokušava riješiti ciljeve postojećih dvosmjernih HTTP tehnologija u kontekstu postojeće HTTP infrastrukture. Kao takav, osmišljen je za rad preko HTTP portova 80 i 443, kao i za podršku HTTP posrednika.
 
 Protokol trenutno podržavaju svi poznatiji internet preglednici poput Firefox(PC i Android verzija), Chrome(PC i mobilna verzija), Safari(PC i iOS verzija), Opera(PC i mobilna verzija), Internet Explorer i Android browser.
 
-Protokol se sastoji od dva dijela: rukovanja\engl{handshake} i prijenosa podataka.
+Protokol se sastoji od dva dijela: rukovanja\engl{handshake} i prijenosa podataka.\citep{rfc6455}
 
 \begin{figure}[htb]
 \centering
@@ -214,7 +215,7 @@ Odabrao sam Firebase Cloud Messaging servis. Firebase Cloud Messaging pruža mog
 
 \section{Klijent}
 
-Pri implementaciji klijenta odlučio sam se za Android platformu. Prednost naspram klasičnih web aplikacija je ta da klijent može imati stalne pozadinske procese koji će biti u mogućnosti primati dojave i kad korisnik ne koristi aplikaciju dok je prednost naspram iOS platforme ta da se pametni mobilni telefoni sa iOS operativnim sustavom manje koriste nego Android telefoni. U 4. kvartetu 2016. godine od svih prodanih mobilnih uređaja 81.7\% su bili pametni mobilni telefoni sa Android operativnim sustavom. Time Android dobiva prioritet pri izradi klijentske aplikacije.
+Pri implementaciji klijenta odlučio sam se za Android platformu. Prednost naspram klasičnih web aplikacija je ta da klijent može imati stalne pozadinske procese koji će biti u mogućnosti primati dojave i kad korisnik ne koristi aplikaciju dok je prednost naspram iOS platforme ta da se pametni mobilni telefoni sa iOS operativnim sustavom manje koriste nego Android telefoni. U 4. kvartetu 2016. godine od svih prodanih mobilnih uređaja 81.7\% \citep{vincent2017} su bili pametni mobilni telefoni sa Android operativnim sustavom. Time Android dobiva prioritet pri izradi klijentske aplikacije.
 
 Za spajanje na poslužitelja koristio sam dvije knjižnice: OkHttp i Retrofit2. OkHttp je HTTP klijent koji uz mogućnost slanja HTTP zahtjeva koristi i bazen veza za smanjenje latencije zahtjeva, cache odgovora za sprečavanje ponovljenih zahtjeva te podržava HTTP/2 što je korisno ukoliko se bude mijenjao protokol u budućnosti. Retrofit2 je knjižnica koja se koristi za jednostavniju uporabu oblikovnog obrazca repozitorij kod repozitorija koji koristi HTTP vezu.
 

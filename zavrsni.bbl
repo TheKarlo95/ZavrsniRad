@@ -1,0 +1,34 @@
+\begin{thebibliography}{4}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Carbou(2011)]{carbou2011}
+Mathieu Carbou.
+\newblock Reverse ajax, part 1: Introduction to comet, July 2011.
+\newblock URL
+  \url{https://www.ibm.com/developerworks/library/wa-reverseajax1/}.
+\newblock [Online; accessed 31-May-2017].
+
+\bibitem[Fette i Melnikov(2011)]{rfc6455}
+Ian Fette i Alexey Melnikov.
+\newblock {The WebSocket Protocol}.
+\newblock {RFC} 6455, {RFC Editor}, December 2011.
+\newblock URL \url{https://tools.ietf.org/html/rfc6455}.
+
+\bibitem[Gravelle(2009)]{gravelle2009comet}
+Rob Gravelle.
+\newblock Comet programming: Using ajax to simulate server push.
+\newblock \emph{Webreference tutorial, Mar}, 2009.
+
+\bibitem[Vincent(2017)]{vincent2017}
+James Vincent.
+\newblock 99.6 percent of new smartphones run android or ios --- the verge,
+  February 2017.
+\newblock URL
+  \url{https://www.theverge.com/2017/2/16/14634656/android-ios-market-share-blackberry-2016}.
+\newblock [Online; accessed 31-May-2017].
+
+\end{thebibliography}
