@@ -5,9 +5,12 @@
 \usepackage{listings}
 
 \lstset{
-  xleftmargin=.15\textwidth,
-  xrightmargin=.15\textwidth
+  escapechar=\&,
+  captionpos=b,
+  basicstyle=\ttfamily\footnotesize\bfseries,
+  frame=tb,
 }
+\renewcommand{\lstlistingname}{Kod}
 
 \begin{document}
 
@@ -25,7 +28,6 @@
 \chapter{Uvod}
 
 U 21. stoljeću svjedočimo sve bržem razvoju tehnologija u svim područjima, a najviše na području informacijskih tehnologija i mobilnih tehnologija. Danas je nezamisliv život bez mobilnih uređaja poput prijenosnih računala, pametnih mobitela, tableta, pametnih satova, itd. To potvrđuje podatak da 60\% ljudi posjeduje mobilni telefon i da danas većina ljudi internetu pristupa pomoću mobilnih uređaja. Do tako drastičnog porasta broja korisnika mobilnih uređaja došlo je ponajviše razvojem tzv. pametnih mobitela. Danas tržištem dominiraju Android i iOS pametni mobilni uređaji koji korisniku pružaju mnoge mogućnosti koje nisu bile dostupne tradicionalnim mobilnim telefonima. Uz razvoj mobilnih mreža i bežičnog interneta korisnicima je omogućeno da budu spojeni na internet bez obzira na vrijeme i mjesto gdje se nalaze. Ti podatci drastično mijenjaju način na koji korisnici koriste svoje uređaje. Od uređaja se više ne zahtjeva samo da može pristupiti informacijama bitnih korisniku nego i da može primati informacije iz više izvora u tren kada te informacije budu dostupne. Standardna klijentsko-poslužnička arhitektura ne zadovoljava tim uvjeta i u tome je motivacija za razvoj tehnologija poslužiteljskih dojava.
-
 
 \chapter{Tehnologije poslužiteljskih dojava}
 
@@ -55,7 +57,7 @@ Protokol se sastoji od dva dijela: rukovanja(engl ``handshake'') i prijenosa pod
 
 \subsection{Rukovanje}
 Klijent tijekom rukovanja poslužitelju šalje:
-\begin{lstlisting}
+\begin{lstlisting}[caption=Zahtjev klijenta tijekom rukovanja]
 GET /chat HTTP/1.1
 Host: server.example.com
 Upgrade: websocket
@@ -66,8 +68,8 @@ Sec-WebSocket-Protocol: chat, superchat
 Sec-WebSocket-Version: 13
 \end{lstlisting}
 
-Poslužitelj tijekom rukovanja klijentu šalje:
-\begin{lstlisting}
+Poslužitelj tijekom rukovanja klijentu šalje: \\
+\begin{lstlisting}[caption=Odgovor poslužitelja tijekom rukovanja]
 HTTP/1.1 101 Switching Protocols
 Upgrade: websocket
 Connection: Upgrade
@@ -95,41 +97,41 @@ Pojavom Android pametnih mobilnih telefona Google, kompanija iza Androida, traž
 
 Prva verzija protokola nazvala se AC2DM(engl. Android Cloud to Device Messaging). Protokol je omogućavao sve aplikacije primaju poslužiteljske dojave preko jedne veze sa Google-ovim poslužiteljem. GCM(engl. Google Cloud Messaging) usluga najavljena je u lipnju 2012. kao nasljednik protokola Android Cloud to Device Messaging. Poboljšanja su uključivala poboljšanja za provjeru autentičnosti i isporuke, nove krajnje točke API-ja i parametre za razmjenu poruka, te uklanjanje ograničenja na broj odaslanih poruka i veličine poruka. 2014 godine Google preuzima tvrtku Firebase i pod imenom Firebase Cloud Messaging izbacuje protokol koji je sada dostupan na Android i iOS pametnim mobilnim uređajima ali i na klasičnim web aplikacijama.
 
+\begin{figure}[htb]
+\centering
+\includegraphics[width=8cm]{img/fcm.png}
+\caption{Princip rada Firebase Cloud Messaging servisa}
+\label{fig:fcm-image}
+\end{figure}
+
 \subsection{Prijava na uslugu}
-Firebase Cloud Messaging protokol radi na način da klijent koji na svom uređaju ima barem jednu aplikaciju koju koristi FCM protokol mora ostvariti vezu sa FCM poslužiteljima. Na Android uređajima svaka aplikacija mora imati servis koji će inicirati vezu sa FCM poslužiteljem i dobiti token jedinstven za svaku aplikaciju. Nakon što klijent dobije token on ga šalje svom poslužitelju koji bi trebao token spremiti ukoliko planira slati dojave tom klijentu. 
+Firebase Cloud Messaging protokol radi na način da klijent koji na svom uređaju ima barem jednu aplikaciju koju koristi FCM protokol mora ostvariti vezu sa FCM poslužiteljem(slika \ref{fig:fcm-image} postupak 1). Na Android uređajima svaka aplikacija mora imati servis koji će inicirati vezu sa FCM poslužiteljem i dobiti token jedinstven za svaku aplikaciju(slika \ref{fig:fcm-image} postupak 2). Nakon što klijent dobije token on ga šalje svom poslužitelju koji bi trebao token spremiti ukoliko planira slati dojave tom klijentu(slika \ref{fig:fcm-image} postupak 3). 
 
 Klijent isto tako ima mogućnost prijave na razne teme. Teme su skupine klijenata koji žele primati iste dojave a svaka tema se identificira pomoću svog jedinstvenog imena. FCM poslužitelj pamti koji klijenti su se pretplatili na koje teme te koriste tu informaciju prilikom slanja dojave.
 
-\begin{figure}[htb]
-\centering
-\includegraphics[width=2cm]{img/FER_logo.jpg}
-\caption{Logo FER-a}
-\label{fig:fer-logo}
-\end{figure}
-
 \subsection{Slanje dojava i podataka}
-Kada poslužitelj poželi poslati dojavu korisniku on za to koristi token koji je prije toga dobio i FCM poslužitelje. Na FCM poslužitelj šalje JSON objekt preko HTTP ili XMLL protokola. JSON objekt se sastoji od dva atributa: ``to'' ili ``condition'', ``notification'' i ``data''.
+Kada poslužitelj poželi poslati dojavu korisniku on za to koristi token koji je prije toga dobio i FCM poslužitelje. Na FCM poslužitelj šalje JSON objekt preko HTTP ili XMLL protokola. JSON objekt se sastoji od dva atributa: ``to'' ili ``condition'', ``notification'' i ``data''(slika \ref{fig:fcm-image} postupak 4), a zatim FCM poslužitelj obrađuje dojavu, sprema u svoju bazu podataka ako klijent nije spojen ili šalje dojavu klijentu(slika \ref{fig:fcm-image} postupak 5) sa JSON objektom(kod \ref{lst:json-dojava}) kao tijelom poruke.
+
+\begin{lstlisting}[caption=Primjer JSON objekta kojeg poslužitelj šalje FCM poslužitelju za slanje dojave, label=lst:json-dojava, float]
+{
+    "to" : "APA91bHun4MxP5egoKMwt2&\ldots&",
+    "notification" : {
+      "body" : "Ovdje se nalazi tijelo dojave",
+      "title" : "Ovdje se nalazi naslov dojave",
+      "icon" : "Ovdje se nalazi ime ikone koja &\'c&e se prikazati uz dojavu"
+    },
+    "data" : {
+      "example1" : "value1",
+      "example2" : "value2"
+    }
+}
+\end{lstlisting}
 
 Prvi atribut može biti ``to'' ili ``condition'' i oba služe za određivanje klijenta ili više njih kome će slati dojava. Kod atributa ``to'' to može biti token koji je prije toga klijent poslao svom poslužitelju ili može biti ime teme. Vrijednost atributa ``condition'' sadrži neke uvijete koje primatelji moraju ispunjavati, npr. ``"condition": "'dogs' in topics || 'cats' in topics"'' znači da će se dojava poslati klijentima koji su pretplaćeni na teme ``dogs'' ili ``cats''.U oba slučaja FCM poslužitelj koristi ovaj podatak da razluči kome treba poslati dojavu.
 
 Atribut ``notification'' se koristi za slanje dojava koje će se prikazati u dijelu za dojave na klijentskom operacijskom sustavu. Ovaj atribut je objekt koji se sastoji od atributa poput ``body'', ``title'', ``icon'', itd. koji određuju informacije koje će se prenijeti ali i koja će se ikonica prikazati uz dojavu ili koji zvuk će se oglasiti prilikom primitka dojave.
 
 Atribut ``data'' se koristi ukoliko se treba poslati veća količina podataka. Pomoću ovog atributa može se poslati do 4kB podataka u obliku ključ-vrijednost. iOS klijent će ove podatke primiti tek kada klijentska aplikacija dođe u prednji plan dok će Android aplikacija obraditi podatke i kad je u pozadini. U slučaju ako se šalju i ``notification'' i ``data'' atribut dojava će se prikazati i ako je aplikacija u pozadini dok će se ``data'' atribut obraditi tek kada aplikacija dođe u prednji plan.
-
-\begin{lstlisting}
-{
-    "to" : "APA91bHun4MxP5egoKMwt2...",
-    "notification" : {
-      "body" : "great match!",
-      "title" : "Portugal vs. Denmark",
-      "icon" : "myicon"
-    },
-    "data" : {
-      "Nick" : "Mario",
-      "Room" : "PortugalVSDenmark"
-    }
-}
-\end{lstlisting}
 
 \section{Apple Push Notification Service}
 
@@ -139,17 +141,23 @@ Prvi pametni mobilni uređaj iPhone kompanije Apple pokrenuo je revoluciju u raz
 
 Princip rada je sličan Firebase Cloud Messaging usluzi. Klijenti se registriraju kod APNs poslužitelja i APNs vodi računa o vezama sa klijentima. Poslužitelj kada poželi poslati dojavu šalje zahtjev prema APNs poslužitelju koji šalje te dojave klijentima.
 
+\begin{figure}[htb]
+\centering
+\includegraphics[width=14cm]{img/apns.png}
+\caption{Upravljanje tokenom uređaja koristeći APNs}
+\label{fig:apns-image}
+\end{figure}
+
 \subsection{Prijava na uslugu}
 
-Po početnom pokretanju aplikacije na korisničkom uređaju sustav automatski uspostavlja akreditiranu, šifriranu i postojanu IP vezu između aplikacije i APNs poslužitelja. Ta veza omogućuje vašoj aplikaciji da izvrši postavljanje kako bi omogućila primanje dojava. Ako je proces autentikacije uspješno izvršen klijentska aplikacija dobije token. Svaki token je jedinstven za aplikaciju i uređaj koji korisnik koristi.
-
+Po početnom pokretanju aplikacije na korisničkom uređaju sustav automatski uspostavlja akreditiranu, šifriranu i postojanu IP vezu između aplikacije i APNs poslužitelja. Ta veza omogućuje vašoj aplikaciji da izvrši postavljanje kako bi omogućila primanje dojava. APNs poslužitelj nakon stvaranja veze sa klijentom generira paket sa token, generira ID uređaja pomoću certifikata uređaja te još enkriptira token sa ključem tokena. Ako je proces autentikacije uspješno izvršen klijentska aplikacija dobije token. Svaki token je jedinstven za aplikaciju i uređaj koji korisnik koristi(slika \ref{fig:apns-image}).
 \subsection{Slanje dojava i podataka}
 
 Poslužitelj pri slanju dojave šalje zahtjev APNs poslužitelju preko HTTP/2 protokola. U tijelu zahtjeva treba poslati JSON objekt koji ne prelazi veličinu od 4kB ili 	VoIP poruku koja ne prelazi 5kB.
 
-JSON objekt se sastoji od atributa ``aps'' i drugih atributa koji nemaju određeno ime a koriste su za prijenos podataka u obliku ključ-vrijednost. Vrijednost atributa ``aps'' je objekt koji sadrži atribute ``title'', ``body'', ``alert'', ``sound'', itd. koji određuju sadržaj notifikacije i način prikaza. Ako se želi poslati tzv. ``tiha'' dojava pošalje se zahtjev sa sadržajem:
+JSON objekt se sastoji od atributa ``aps'' i drugih atributa koji nemaju određeno ime a koriste su za prijenos podataka u obliku ključ-vrijednost. Vrijednost atributa ``aps'' je objekt koji sadrži atribute ``title'', ``body'', ``alert'', ``sound'', itd. koji određuju sadržaj notifikacije i način prikaza. Ako se želi poslati tzv. ``tiha'' dojava pošalje se posebno oblikovani zahtjev(kod \ref{lst:tiha-dojava}).
 
-\begin{lstlisting}
+\begin{lstlisting}[caption=JSON objekt za ``tihu'' dojavu, label=lst:tiha-dojava, float]
 {
     "aps" : {
         "content-available" : 1
