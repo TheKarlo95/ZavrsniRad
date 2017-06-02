@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.5.26)  1 JUN 2017 16:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.5.26)  2 JUN 2017 20:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -822,37 +822,31 @@ Poglavlje 5.
 (./zavrsni.bbl [17
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 9--14
-\T1/pcr/m/n/12 / / www . ibm . com / developerworks / library / wa-[]reverseaja
-x1/$\T1/ptm/m/n/12 .
+Underfull \hbox (badness 10000) in paragraph at lines 9--12
+\T1/pcr/m/n/12 https : / / developer . apple . com / go / ?id = push-[]notifica
+tions$\T1/ptm/m/n/12 .
  []
 
 
-Underfull \hbox (badness 1028) in paragraph at lines 27--33
-[]\T1/ptm/m/n/12 James Vin-cent.  99.6 per-cent of new smar-tp-ho-nes run an-dr
-oid or ios --- the
+Underfull \hbox (badness 5260) in paragraph at lines 19--24
+[]\T1/ptm/m/n/12 Mathieu Car-bou.  Re-verse ajax, part 1: In-tro-duc-tion to co
+-met, sr-panj
  []
 
 
-Underfull \hbox (badness 2401) in paragraph at lines 27--33
-\T1/ptm/m/n/12 verge, Fe-bru-ary 2017.  URL $\T1/pcr/m/n/12 https : / / www . t
-heverge . com / 2017 / 2 /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 27--33
-\T1/pcr/m/n/12 16 / 14634656 / android-[]ios-[]market-[]share-[]blackberry-[]20
-16$\T1/ptm/m/n/12 .
+Underfull \hbox (badness 10000) in paragraph at lines 19--24
+\T1/ptm/m/n/12 2011.  URL $\T1/pcr/m/n/12 https : / / www . ibm . com / develop
+erworks / library /
  []
 
 ) [18
 
 ] [19] (./zavrsni.aux) ) 
 Here is how much of TeX's memory you used:
- 7600 strings out of 493013
- 102768 string characters out of 6139317
- 184728 words of memory out of 5000000
- 10975 multiletter control sequences out of 15000+600000
+ 7606 strings out of 493013
+ 102861 string characters out of 6139317
+ 184772 words of memory out of 5000000
+ 10981 multiletter control sequences out of 15000+600000
  57153 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  43i,6n,40p,1927b,1124s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -863,7 +857,7 @@ c/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/s
 hare/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/t
 ype1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmri8a.
 pfb>
-Output written on zavrsni.pdf (25 pages, 312388 bytes).
+Output written on zavrsni.pdf (25 pages, 312719 bytes).
 PDF statistics:
  123 PDF objects out of 1000 (max. 8388607)
  80 compressed objects within 1 object stream

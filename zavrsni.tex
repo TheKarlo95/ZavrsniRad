@@ -148,7 +148,7 @@ Prvi atribut može biti \glqq to\grqq\  ili \glqq condition\grqq\  i oba služe 
 
 Atribut \glqq notification\grqq\  se koristi za slanje dojava koje će se prikazati u dijelu za dojave na klijentskom operacijskom sustavu. Ovaj atribut je objekt koji se sastoji od atributa poput \glqq body\grqq , \glqq title\grqq , \glqq icon\grqq , itd. koji određuju informacije koje će se prenijeti ali i koja će se ikonica prikazati uz dojavu ili koji zvuk će se oglasiti prilikom primitka dojave.
 
-Atribut \glqq data\grqq\  se koristi ukoliko se treba poslati veća količina podataka. Pomoću ovog atributa može se poslati do 4kB podataka u obliku ključ-vrijednost. iOS klijent će ove podatke primiti tek kada klijentska aplikacija dođe u prednji plan dok će Android aplikacija obraditi podatke i kad je u pozadini. U slučaju ako se šalju i \glqq notification\grqq\  i \glqq data\grqq\  atribut dojava će se prikazati i ako je aplikacija u pozadini dok će se \glqq data\grqq\  atribut obraditi tek kada aplikacija dođe u prednji plan.
+Atribut \glqq data\grqq\  se koristi ukoliko se treba poslati veća količina podataka. Pomoću ovog atributa može se poslati do 4kB podataka u obliku ključ-vrijednost. iOS klijent će ove podatke primiti tek kada klijentska aplikacija dođe u prednji plan dok će Android aplikacija obraditi podatke i kad je u pozadini. U slučaju ako se šalju i \glqq notification\grqq\  i \glqq data\grqq\  atribut dojava će se prikazati i ako je aplikacija u pozadini dok će se \glqq data\grqq\  atribut obraditi tek kada aplikacija dođe u prednji plan.\citep{fcm2017}
 
 \section{Apple Push Notification Service}
 
@@ -182,7 +182,7 @@ JSON objekt se sastoji od atributa \glqq aps\grqq\  i drugih atributa koji nemaj
 }
 \end{lstlisting}
 
-Tiha dojava označava aplikaciji da ima dostupne dojave i da ih može dohvatiti kada to poželi.
+Tiha dojava označava aplikaciji da ima dostupne dojave i da ih može dohvatiti kada to poželi.\citep{apns2017}
 
 \chapter{Arhitektura aplikacije}
 
