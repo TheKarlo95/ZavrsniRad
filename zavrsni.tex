@@ -353,7 +353,44 @@ Za prihvaćanje zahtjeva sa klijenta i razvoj API-a koristio sam Jersey. Jersey 
 
 Spremanje podataka i pretraga tih podataka je najvažnija zadaća poslužiteljskog dijela programa. Za bazu podataka sam odabrao MySQL zbog toga što je to besplatna baza podataka otvorenog koda. MySQL je veoma popularna baza podataka i stoga ima veliku potporu zajednice pa je stoga primamljiv odabir naspram drugih besplatnih rješenja. Za rad sa bazom podataka sam koristio knjižnicu za objektno-relacijsko mapiranje Hibernate. Hibernate je implementacija JPA(Java persistency API) specifikacije koja koristi Java objekte za kreiranje tablica i spremanje podataka. Uz osnovne funkcionalnosti objektno-relacijsko mapiranja Hibernate podržava laku integraciju sa sustavima za cache-iranje poput EhCache-a. EhCache će spremati pozive prema bazi podataka u memoriju tako da će uvelike ubrzati rad sa bazama podataka koji često zna usporiti ostatak aplikacije.
 
-Prilikom interakcije sa klijentom bitno je da poslužitelj može pouzdano utvrditi identitet korisnika koji šalje upite i stoga sam koristio Apache Oltu knjižnicu. Apache Oltu podržava OAuth i OAuth2 protokole i ova knjižnica je veoma jednostavna za korištenje.
+\begin{figure}
+\begin{lstlisting}
+POST /events/5/messages HTTP/1.1
+Authorization: Basic TWFuIGlzIGRpc3Rpbmd1aX=
+
+{
+	"fcm_token":"xHSnx2421&\ldots&",
+	"username":"Example1",
+	"password":"2fd4e1c67a&\ldots&"
+	&\ldots&
+}
+\end{lstlisting}
+\caption{Primjer zahtjeva za registraciju}
+\label{lst:register-request}
+\end{figure}
+
+Prilikom interakcije sa klijentom bitno je da poslužitelj može pouzdano utvrditi identitet korisnika koji šalje upite. Fokus ovog rada nije na sigurnosti pa je stoga korišten tehnika {\em HTTP Basic authentication} (BA). Sustav od korisnika zahtjeva da uz svaki zahtjev za koji je potrebna autentikacija šalje zaglavlje u obliku {\tt Authorization: Basic \{Base64 šifra\}} gdje je {\tt \{Base64 šifra\}} korisničko ime i lozinka šifrirana sa {\em Base64} algoritmom. Primjer korištenja ovakve autentikacije možemo vidjeti na slici \ref{lst:register-request}.
+
+\begin{table}[htb]
+\caption{Popis akcija na poslužitelju}
+\label{tbl:konstante}
+\centering
+\begin{tabular}{lll} \hline
+Metoda & Putanja & Opis\\ \hline
+POST & /users/login & Prijava korisnika \\
+POST & /users & Registracija korisnika \\
+GET & /users & Dohvat liste svih korisnika  \\
+GET & /users/\{id\} & Dohvat profila korisnika pomoću id-a \\
+PATCH & /users/\{id\}/token & Osvježavanje FCM tokena \\
+POST & /events & Kreira događaj \\
+GET & /events & Dohvat liste svih događaja  \\
+GET & /events/\{id\}/events & Dohvat liste događaja\\
+GET & /users/\{id\}/followed & Dohvat profila korisnika pomoću id-a \\
+PATCH & /users/\{userId\}/follow/\{eventId\}" & Pretplaćivanje na događaja \\
+PATCH & /users/\{userId\}/unfollow/\{eventId\}" & Prekid pretplate na događaj \\
+POST & /events/{Id}/messages & Kreira poruku za zadani događaj \\ \hline
+\end{tabular}
+\end{table}
 
 \chapter{Zaključak}
 
