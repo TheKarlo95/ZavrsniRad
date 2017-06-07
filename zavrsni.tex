@@ -4,6 +4,7 @@
 \usepackage{url}
 \usepackage{indentfirst}
 \usepackage{listings}
+\usepackage{subcaption}
 
 \lstset{
   escapechar=\&,
@@ -11,8 +12,6 @@
   basicstyle=\ttfamily\footnotesize\bfseries,
   frame=tb,
 }
-\renewcommand{\lstlistingname}{Kod}
-\renewcommand{\lstlistlistingname}{Popis kodova}
 
 \begin{document}
 
@@ -203,10 +202,9 @@ Princip rada je sličan {\em Firebase Cloud Messaging} usluzi. Klijenti se regis
 \end{figure}
 
 \subsection{Prijava na uslugu}
-
 Po početnom pokretanju aplikacije na korisničkom uređaju sustav automatski uspostavlja akreditiranu, šifriranu i postojanu IP vezu između aplikacije i APNs poslužitelja. Ta veza omogućuje vašoj aplikaciji da izvrši postavljanje kako bi omogućila primanje dojava. APNs poslužitelj nakon stvaranja veze sa klijentom generira paket sa token, generira ID uređaja pomoću certifikata uređaja te još enkriptira token sa ključem tokena. Ako je proces autentikacije uspješno izvršen klijentska aplikacija dobije token. Svaki token je jedinstven za aplikaciju i uređaj koji korisnik koristi(slika \ref{fig:apns-image}).
-\subsection{Slanje dojava i podataka}
 
+\subsection{Slanje dojava i podataka}
 Poslužitelj pri slanju dojave šalje zahtjev APNs poslužitelju preko HTTP/2 protokola. U tijelu zahtjeva treba poslati JSON objekt koji ne prelazi veličinu od 4kB ili 	VoIP poruku koja ne prelazi 5kB.
 
 JSON objekt se sastoji od atributa {\tt aps} i drugih atributa koji nemaju određeno ime a koriste su za prijenos podataka u obliku ključ-vrijednost. Vrijednost atributa {\tt aps} je objekt koji sadrži atribute {\tt title}, {\tt body}, {\tt alert}, {\tt sound}, itd. koji određuju sadržaj notifikacije i način prikaza. Ako se želi poslati tzv. \glqq tiha\grqq\  dojava pošalje se posebno oblikovani zahtjev(kod \ref{lst:tiha-dojava}). Tiha dojava označava aplikaciji da ima dostupne dojave i da ih može dohvatiti kada to poželi.\citep{apns2017}
@@ -228,38 +226,39 @@ JSON objekt se sastoji od atributa {\tt aps} i drugih atributa koji nemaju odre�
 Ideja je napraviti aplikaciju koja korisniku omogućava praćenje događaja poput koncerata, rođendana i sl. i informacija vezanih uz taj događaj. Isto tako korisnici trebaju imati mogućnost kreiranja događaja za koje mogu definirati nekakve atribute poput naziva događaja, opisa, datuma i sl. Svi pratioci koji prate određeni događaj bi trebali dobiti dojavu kada se kreator događaja odluči izmijeniti neki od atributa događaja ili odluči poslati poruku vezanu uz taj događaj. Tako će se dobiti aplikacija koja će biti koristan alat pri organizaciji manjih događaja ali i većih događaja. Aplikacija se lako može pretvoriti u manju društvenu mrežu na kojoj će fokus biti na događajima, a ne na objavama kao većina društvenih mreža. Aplikacija se sastoji od poslužiteljskog dijela i klijentskog dijela.
 
 \section{Protokol za razmjenu podataka}
-
 Za funkcioniranje aplikacije mora se implementirati protokol za razmjenu podataka između poslužitelja i klijenta. Za implementaciju ove aplikacije potrebno je omogućiti dvosmjernu komunikaciju između klijenta i poslužitelja.
 
 Prilikom neke akcije, poput registracije, prijave, stvaranja novog događaja, pretplate na događaj, itd., klijent će podatke slati na poslužitelj koji će obaviti provjeru ispravnosti tih podataka, obraditi ih i odgovoriti klijentu da li su poslani podatci uspješno poslani i poslati će korisniku resurse, poput profila korisnika, liste događaja, itd., ukoliko ih je klijent zatražio.
 
-Korisnik koji je kreirao događaj može ih i promijeniti te poslati poruke vezane uz taj događaj. Kod tih događaja potrebno je obavijestiti druge korisnike koji su se pretplatili na taj događaj o obavljenim promjenama ili novoj poruci sa poslužiteljskom dojavom. Ukoliko korisnik pretplatnik nije trenutno dostupan dojavu treba spremiti te poslati čim postane dostupan.
+Korisnik koji je kreirao događaj može ih i promijeniti te poslati poruke vezane uz taj događaj. Kod tih događaja potrebno je obavijestiti druge korisnike koji su se pretplatili na taj događaj o obavljenim promjenama ili novoj poruci sa poslužiteljskom dojavom kako je prikazano na slici \ref{fig:event-subscription-image}. Ukoliko korisnik pretplatnik nije trenutno dostupan dojavu treba spremiti te poslati čim postane dostupan.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=14cm]{img/event-subscription.png}
+\caption{Slanje događaja i pretplata na događaj}
+\label{fig:event-subscription-image}
+\end{figure}
 
 \section{Autentikacija}
-
 Aplikacija treba imati mogućnosti registracije i prijave kako bi raspoznala korisnike i pamtila njihove odabire. Svaki korisnik bi trebao imati jedinstveno korisničko ime. Prilikom otvaranja klijentske aplikacije korisnika se mora zatražiti da unese svoje korisničko ime i lozinku. Ako se radi o novom korisniku mora mu se ponuditi mogućnost registracije, a pri registraciji korisnici bi trebali unijeti svoje osobne podatke, korisničko ime njihovog budućeg računa i lozinku. Nakon što unese korisničko ime i lozinku korisnik pomoću klijentske aplikacije šalje zahtjev prema poslužitelju koji će utvrditi da li se radi o ispravnim podacima. 
 
 Ako se radi o ispravnim podacima klijent će podatke za prijavu privremeno spremiti na klijentski uređaj. Svaki put kada klijent želi stvoriti novi događaj, poslati poruku, pretplatiti se na događaj i sl. koristiti će te podatke kako bi poslužitelj mogao utvrditi da tu akciju obavlja korisnik koji je za to i autoriziran.
 
 \section{Spremanje podataka}
-
 Poslužiteljski dio je odgovoran za spremanje svih podataka vezanih uz aplikaciju. Za spremanje podataka koristiti ćemo relacijske baze podataka, a za lakši rad i lakše pristupanje bazi podataka koristiti ćemo objektno-relacijsko mapiranje(engl. object-relational mapping).
 
 \section{Poslužiteljske dojave}
-
 Poslužiteljske dojave se ovdje koriste kao način na koji se obavješćuje pretplatnika o izmjenama u događajima koje prate. Pošto izmjene mogu biti veoma bitne korisniku vrlo je bitno da se poruke dostave u što kraćem roku ali i da se ne izgube ukoliko klijent nije spojen na poslužitelj u tom trenutku(npr. korisnikov uređaj nema pristup internetu ili je ugašen).
 
 \chapter{Programsko ostvarenje}
 
 \section{Poslužiteljske dojave}
-
 Prilikom odabira tehnologije za poslužiteljske dojave velika pažnja je bila na brzini slanja dojava i načinu na koji određena tehnologija rješava problem korisnika koji nije spojen na poslužitelj u trenutku dolaska dojave. Isto tako bitno je koje sve platforme ta tehnologija podržava jer bi u budućnosti mogli poželjeti izraditi klijentsku aplikaciju za neku drugu platformu.
 
 Odabrao sam Firebase Cloud Messaging servis. Firebase Cloud Messaging pruža mogućnost brzog slanja dojava, a ako dojavu nije moguće poslati u trenutku kada se dojava pojavila(npr. korisnik nije spojen na internet ili je ugasio uređaj) FCM servis će automatski spremiti dojavu i poslati je čim korisnik ponovo ostvari vezu sa FCM poslužiteljem. Velika prednost Firebase-ovog servisa je ta da je više-platformski. FCM podržava Android i iOS operativne sustave ali i klasične web aplikacije.
 
 \section{Klijent}
-
-Pri implementaciji klijenta odlučio sam se za Android platformu. Prednost naspram klasičnih web aplikacija je ta da klijent može imati stalne pozadinske procese koji će biti u mogućnosti primati dojave i kad korisnik ne koristi aplikaciju dok je prednost naspram iOS platforme ta da se pametni mobilni telefoni sa iOS operativnim sustavom manje koriste nego Android telefoni. U 4. kvartetu 2016. godine od svih prodanih mobilnih uređaja 81.7\% \citep{vincent2017} su bili pametni mobilni telefoni sa Android operativnim sustavom. Time Android dobiva prioritet pri izradi klijentske aplikacije.
+Pri implementaciji klijenta korištena je Android platforma. Prednost naspram klasičnih web aplikacija je ta da Android klijent može imati stalne pozadinske procese koji će biti u mogućnosti primati dojave i kad korisnik ne koristi aplikaciju dok je prednost naspram iOS platforme ta da se pametni mobilni telefoni sa iOS operativnim sustavom manje koriste nego Android telefoni. U 4. kvartetu 2016. godine od svih prodanih mobilnih uređaja 81.7\% \citep{vincent2017} su bili pametni mobilni telefoni sa Android operativnim sustavom. Time Android dobiva prioritet pri izradi klijentske aplikacije.
 
 Za spajanje na poslužitelja koristio sam dvije knjižnice: OkHttp i Retrofit2. OkHttp je HTTP klijent koji uz mogućnost slanja HTTP zahtjeva koristi i bazen veza za smanjenje latencije zahtjeva, cache odgovora za sprečavanje ponovljenih zahtjeva te podržava HTTP/2 što je korisno ukoliko se bude mijenjao protokol u budućnosti. Retrofit2 je knjižnica koja se koristi za jednostavniju uporabu oblikovnog obrazca repozitorij kod repozitorija koji koristi HTTP vezu.
 
@@ -267,8 +266,87 @@ Za svaku aplikaciju vrlo bitno je da je responzivna u svim trenucima. Kako bi rj
 
 Da bi omogućili klijentu vezu sa Firebase Cloud Messaging poslužiteljem moramo koristiti Android knjižnicu za FCM pomoću koje sam napravio servis koji će biti obaviješten kada korisnik primi dojavu. Taj servis će pri primljenoj dojavi, tu dojavu obraditi i na kraju obavijestiti korisnika sa obavijesti u traci za dojave.
 
-\section{Poslužitelj}
+\subsection{Prijava korisnika}
+Pri ulasku u aplikaciju korisnika će dočekati ekran za prijavu prikazan na slici \ref{fig:login-image}. Korisnik ima mogućnost upisati svoje podatke za prijavu, tj. korisničko ime \engl{username} i lozinku \engl{password}. Nakon unosa podataka korisnik će potvrditi svoje podatke pritiskom na gumb za prijavu \engl{login}. Prvo će aplikacija provjeriti ispravnost upisanih podataka, a zatim će ih poslati poslužitelju koji će provjeriti da li postoji upisani korisnik sa upisanom lozinkom.
 
+\begin{figure}[htb]
+\centering
+\includegraphics[width=4cm]{img/ss-login.png}
+\caption{Prozor za prijavu}
+\label{fig:login-image}
+\end{figure}
+
+\subsection{Registracija korisnika}
+Ukoliko korisnik nije prije izradio račun isti može napraviti pomoću ekrana za registraciju prikazanog na slici \ref{fig:register-image}. Do njega može doći pritiskom na gumb za registraciju \engl{sign up} na ekranu za prijavu. Prilikom registracije od korisnika se traži da upiše željeno korisničko ime, lozinku, e-mail, ime, prezime i datum rođenja. Nakon što je korisnik siguran da je upisao ispravne podatke to potvrđuje pritiskom na gumb za registraciju na dnu ekrana. Nakon pritiska aplikacija prvo provjeri podatke prije nego što ih pošalje poslužitelju. Kako se ne bi poslužitelj bespotrebno opterećivao podatke se prvo provjerava lokalno. Korisničko ime se mora sastojati od minimalno 3 do 30 alfanumeričkih znakova dok se za lozinku provjerava da li se sastoji od minimalno 8 znakova i da li sadrži barem jedno malo slovo, jedno veliko slovo i jedan broj. Nakon uspješne provjere podatke se šalje poslužitelju a kada se registracija završi korisnik je i automatski prijavljen.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=4cm]{img/ss-register.png}
+\caption{Prozor za registraciju}
+\label{fig:register-image}
+\end{figure}
+
+\subsection{Glavni prozor}
+Nakon uspješne prijave ili registracije korisnika se prebacuje na glavni prozor koji će prikazivati listu svih registriranih korisnika prikazanu na slici \ref{fig:user-list-image}. Na dnu glavnog prozora se nalazi navigacijska traka. Na navigacijskoj traci korisnik može odabrati četiri sadržaja glavnog prozora: listu svih korisnika, listu svih događaja, listu događaja na koje je pretplaćen i listu događaja koje je kreirao.
+
+Ako je korisnik odabrao prikaz liste registriranih korisnika tada će aplikacija poslati zahtjev poslužitelju a poslužitelj mu šalje listu svih korisnika. Aplikacija zatim korisniku prikazuje listu svih korisnika u obliku liste na kojoj su prikazani slika profila korisnika i korisničko ime.
+
+\begin{figure}
+\centering
+
+\begin{subfigure}{0.5\linewidth}
+	\centering
+    \includegraphics[width=0.45\linewidth]{img/ss-user-list.png} 
+    \caption{Lista svih korisnika}
+    \label{fig:user-list-image}
+\end{subfigure}%
+\begin{subfigure}{0.5\linewidth}
+ 	\centering
+    \includegraphics[width=0.45\linewidth]{img/ss-event-list-all.png} 
+    \caption{Lista svih događaja}
+    \label{fig:event-list-all-image}
+\end{subfigure}
+\begin{subfigure}{0.5\linewidth}
+	\centering    
+    \includegraphics[width=0.45\linewidth]{img/ss-event-list-followed.png} 
+    \caption{Lista praćenih događaja}
+    \label{fig:event-list-followed-image}
+\end{subfigure}%
+\begin{subfigure}{0.5\linewidth}
+	\centering
+    \includegraphics[width=0.45\linewidth]{img/ss-event-list-my.png} 
+    \caption{Lista kreiranih događaja}
+    \label{fig:event-list-my-image}
+\end{subfigure}%
+\caption{Glavni prozor}
+\label{fig:main-activity-image}
+\end{figure}
+
+Pritiskom na jednog korisnika, tj. jedan red otvara se ekran sa profilom tog korisnika prikazan na slici \ref{fig:user-profile-image}. Na tom ekranu korisnik može vidjeti osobne podatke tog korisnika poput imena, prezimena i e-mail adrese te listu događaja koje je ta osoba kreirala.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=4cm]{img/ss-user-profile.png}
+\caption{Prozor za prikaz profila korisnika}
+\label{fig:user-profile-image}
+\end{figure}
+
+Korisnik također može pregledati listu svih događaja prikazanu na slici \ref{fig:event-list-all-image} pritiskom na drugu ikonicu na navigacijskog traci. Nakon pritiska tipke aplikacija zatraži događaje od poslužitelja te ih prikaže na ekranu u obliku liste. Svaki događaj je prikazan pomoću jedne kartice na kojoj je prikazana slika, ime događaja i korisničko ime osobe koja je kreirala taj događaj. Ako prikazani događaj nije kreirao trenutno prijavljeni korisnik također u doljnjem lijevom kutu se nalazi ikonica u obliku srca koja služi za pretplatu na taj događaj. Ukoliko je srce popunjeno crvenom bojom to znači da je korisnik trenutno pretplaćen na taj događaj, a ako je prazno znači da nije. Prilikom pritiska na ikonicu šalje se zahtjev poslužitelju za odjavu pretplate ili pretplatu na taj događaj zavisno od prijašnjeg stanja. Nakon što poslužitelj dojavi da se korisnik uspješno pretplatio ili odjavio pretplatu ikonica mijenja izgled u odgovarajući oblik. Također aplikacija javlja FCM poslužitelju da se prijavila na taj događaj tako da mu šalje jedinstveni identifikator tog događaja.
+
+Ukoliko korisnik želi vidjeti više informacija o događaju može kliknuti na jednu od kartica i tako otvoriti ekran za prikaz profila događaja prikazan na slici \ref{fig:user-event-image}. Na tom ekranu mogu se vidjeti sve informacije o događaju i sve poruke koje su poslane vezane uz taj događaj. Ukoliko je taj događaj ujedno i događaj kojeg je kreirao trenutno prijavljeni korisnik na dnu ekrana će se nalaziti gumb za dodavanje novih poruka. Pritiskom na taj gumb korisniku se prikazuje iskočni prozor sa formom za unos nove poruke. Nakon što korisnik završi sa unosom poruke i pritisne gumb za slanje poruke, ta poruka se šalje poslužitelju.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=4cm]{img/ss-event-profile.png}
+\caption{Prozor za prikaz profila događaja}
+\label{fig:user-event-image}
+\end{figure}
+
+Liste za pregled pretplaćenih događaja i vlastitih događaja funkcioniraju na sličan način kako i funkcionira ekran za pregled liste svih događaja s razlikom da na ekranu za listu vlastitih događaja imamo gumb za dodavanje novih događaja. Pritiskom na taj gumb korisniku se prikazuje iskočni prozor sa formom za unos novog događaja.
+
+U svakom trenutku, čak i kada je aplikacija ugašena, korisnik može primiti poslužiteljsku dojavu ukoliko je poslana poruka vezana uz jedan od događaja na koji je trenutno prijavljeni korisnik pretplaćen. Naslov dojave će biti ime tog događaja a sadržaj dojave će biti sadržaj poruke.
+
+\section{Poslužitelj}
 Pri implementaciji poslužiteljskog dijela aplikacije koristio sam Java EE tehnologije zbog toga što su Java programi više-platformski, ali i zbog česte uporabe ove platforme u implementaciji velikih sustava za razne kompanije. Zbog dobre zastupljenosti danas za u ovoj tehnologiji za neke česte probleme postoje dobra i isprobana rješenja što uvelike smanjuje količinu rada sa moje strane.
 
 Za prihvaćanje zahtjeva sa klijenta i razvoj API-a koristio sam Jersey. Jersey je implementacija JAX-RS(Java API for RESTful Web Services) specifikacije koja je napravljen za lakšu implementaciju REST i sličnih API-a. Ovom metodom ne moramo ništa eksplicitno podešavati osim što moramo označiti koja metoda će se pokrenuti za koji tip zahtjeva.

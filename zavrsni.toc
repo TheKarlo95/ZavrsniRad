@@ -19,11 +19,14 @@
 \contentsline {chapter}{\numberline {3}Arhitektura aplikacije}{13}
 \contentsline {section}{\numberline {3.1}Protokol za razmjenu podataka}{13}
 \contentsline {section}{\numberline {3.2}Autentikacija}{14}
-\contentsline {section}{\numberline {3.3}Spremanje podataka}{14}
-\contentsline {section}{\numberline {3.4}Poslu\IeC {\v z}iteljske dojave}{14}
-\contentsline {chapter}{\numberline {4}Programsko ostvarenje}{15}
-\contentsline {section}{\numberline {4.1}Poslu\IeC {\v z}iteljske dojave}{15}
-\contentsline {section}{\numberline {4.2}Klijent}{15}
-\contentsline {section}{\numberline {4.3}Poslu\IeC {\v z}itelj}{16}
-\contentsline {chapter}{\numberline {5}Zaklju\IeC {\v c}ak}{18}
-\contentsline {chapter}{Literatura}{19}
+\contentsline {section}{\numberline {3.3}Spremanje podataka}{15}
+\contentsline {section}{\numberline {3.4}Poslu\IeC {\v z}iteljske dojave}{15}
+\contentsline {chapter}{\numberline {4}Programsko ostvarenje}{16}
+\contentsline {section}{\numberline {4.1}Poslu\IeC {\v z}iteljske dojave}{16}
+\contentsline {section}{\numberline {4.2}Klijent}{16}
+\contentsline {subsection}{\numberline {4.2.1}Prijava korisnika}{17}
+\contentsline {subsection}{\numberline {4.2.2}Registracija korisnika}{18}
+\contentsline {subsection}{\numberline {4.2.3}Glavni prozor}{18}
+\contentsline {section}{\numberline {4.3}Poslu\IeC {\v z}itelj}{21}
+\contentsline {chapter}{\numberline {5}Zaklju\IeC {\v c}ak}{23}
+\contentsline {chapter}{Literatura}{24}
