@@ -27,55 +27,83 @@
 
 \tableofcontents
 \listoffigures
-\lstlistoflistings
 
 \chapter{Uvod}
 
-U 21. stoljeću svjedočimo sve bržem razvoju tehnologija u svim područjima, a najviše na području informacijskih tehnologija i mobilnih tehnologija. Danas je nezamisliv život bez mobilnih uređaja poput prijenosnih računala, pametnih mobitela, tableta, pametnih satova, itd. To potvrđuje podatak da 60\% ljudi posjeduje mobilni telefon i da danas većina ljudi internetu pristupa pomoću mobilnih uređaja. Do tako drastičnog porasta broja korisnika mobilnih uređaja došlo je ponajviše razvojem tzv. pametnih mobitela. Danas tržištem dominiraju Android i iOS pametni mobilni uređaji koji korisniku pružaju mnoge mogućnosti koje nisu bile dostupne tradicionalnim mobilnim telefonima. Uz razvoj mobilnih mreža i bežičnog interneta korisnicima je omogućeno da budu spojeni na internet bez obzira na vrijeme i mjesto gdje se nalaze. Ti podatci drastično mijenjaju način na koji korisnici koriste svoje uređaje. Od uređaja se više ne zahtjeva samo da može pristupiti informacijama bitnih korisniku nego i da može primati informacije iz više izvora u tren kada te informacije budu dostupne. Standardna klijentsko-poslužnička arhitektura ne zadovoljava tim uvjeta i u tome je motivacija za razvoj tehnologija poslužiteljskih dojava.
+U 21. stoljeću svjedočimo sve bržem razvoju tehnologija u svim područjima, a najviše na području informacijskih tehnologija i mobilnih tehnologija. Danas je nezamisliv život bez mobilnih uređaja poput prijenosnih računala, pametnih mobitela, tableta, pametnih satova, itd. To potvrđuje podatak da 60\% ljudi posjeduje mobilni telefon i da danas većina ljudi internetu pristupa pomoću mobilnih uređaja. Do tako drastičnog porasta broja korisnika mobilnih uređaja došlo je ponajviše razvojem tzv. pametnih mobitela. Danas tržištem dominiraju Android i iOS pametni mobilni uređaji koji korisniku pružaju mnoge mogućnosti koje nisu bile dostupne tradicionalnim mobilnim telefonima. Uz razvoj mobilnih mreža i bežičnog interneta korisnicima je omogućeno da budu spojeni na internet bez obzira na vrijeme i mjesto gdje se nalaze. Ti podatci drastično mijenjaju način na koji korisnici koriste svoje uređaje. Od uređaja se više ne zahtjeva samo da može pristupiti informacijama bitnih korisniku nego i da može primati informacije iz više izvora u tren kada te informacije budu dostupne. Standardna klijentsko-poslužiteljska arhitektura ne zadovoljava tim uvjeta i u tome je motivacija za razvoj tehnologija poslužiteljskih dojava.
+
+Rana rješenja su došla u obliku tehnike prozivanja 
 
 \chapter{Tehnologije poslužiteljskih dojava}
 
 \section{Comet}
-U početcima World Wide Web tehnologije internet preglednici za svaku stranicu poslao više zahtjeva prema poslužitelju, svaki zahtjev za jednu komponentu stranice, npr. HTML dokument, CSS dokument, skripte ili bilo koji drugi resurs koji se upotrebljavao na stranici. Preuzimanje stranice u dijelove podataka poznato je kao model stranica po stranica model\engl{Page-by-Page model}. Za dohvat novog sadržaja stranice stranica se trebala ponovo učitati.
+U početcima World Wide Web tehnologije internet preglednici za svaku stranicu poslao više zahtjeva prema poslužitelju, svaki zahtjev za jednu komponentu stranice, npr. HTML dokument, CSS dokument, skripte ili bilo koji drugi resurs koji se upotrebljavao na stranici. Preuzimanje stranice u dijelove podataka poznato je kao model stranica po stranica model \engl{Page-by-Page model}. Za dohvat novog sadržaja stranice stranica se trebala ponovo učitati.
 
-AJAX(Asynchronous Javascript and XML) tehnologija je donijela promjene i omogućila učitavanje dijelova stranice kroz asinkrone zahtjeve prema poslužitelju ali AJAX nije riješio sve probleme dinamičkih web stranica. Iako web preglednici sa AJAX-om imaju mogućnost zatražiti podatke sa servera i dinamički izmijeniti stranicu kada ti podatci stignu i dalje nisu imali mehanizam kojim bi znali da li server uopće ima nove podatke u slučajevima kada je to potrebno, npr. chat aplikacije. U takvim slučajevima se koristila tzv. \glqq polling\grqq\  tehnika.\citep{gravelle2009comet}
+{\em Asynchronous Javascript and XML} (AJAX) tehnologija je donijela promjene i omogućila učitavanje dijelova stranice kroz asinkrone zahtjeve prema poslužitelju ali AJAX nije riješio sve probleme dinamičkih web stranica. Iako web preglednici sa AJAX-om imaju mogućnost zatražiti podatke sa servera i dinamički izmijeniti stranicu kada ti podatci stignu i dalje nisu imali mehanizam kojim bi znali da li server uopće ima nove podatke u slučajevima kada je to potrebno, npr. chat aplikacije. U takvim slučajevima se koristila tzv. tehnika prozivanja.\citep{gravelle2009comet}
 
-\subsection{Polling}
-\glqq Polling\grqq\  tehnika je tehnika ostvarivanja poslužiteljskih dojava koja koristi periodičko slanje zahtjeva prema poslužitelju i na taj način doznaje da li poslužitelj ima relevantnih podataka koje bi klijent trebao prikazati. Ova tehnika ustvari nije prava \glqq push\grqq\  tehnologija jer bi takva tehnologija omogućila poslužitelju slanje podataka klijentu bez zahtjeva klijenta. Ovu tehniku možemo podijeliti na dvije kategorije: \glqq polling\grqq\  i \glqq long polling\grqq .
+Comet je model web aplikacija u kojem se koristi HTTP veza za imitaciju poslužiteljskih dojava. U ovom modelu HTTP veza se održava živom kako bi se kroz tu vezu slale poslužiteljske dojave. Comet je u biti grupni naziv za sve tehnologije koje ostvaruju poslužiteljske dojave pomoću HTTP veze.
 
-\glqq Polling\grqq\  tehnika se obično ostvaruje tako da klijent ostvari vezu prema poslužitelju, pošalje HTTP zahtjeve prema poslužitelju, poslužitelj odgovara klijentu i šalje mu podatke sa dojavom ukoliko je dostupna te se nakon što klijent primi odgovor veza raskida. Ovaj proces bi se periodički ponavljao te bi tako korisnik naizgled imao prave poslužiteljske dojave. Ova tehnika se obično koristila na internet stranicama pomoću periodičkih AJAX zahtjeva. Problemi ovakve implementacije poslužiteljskih dojava su očiti. Zbog potrebe za slanjem periodičkih HTTP zahtjeva koji su često i bespotrebnih poslužitelja se tjera na nepotrebnu obradu velikog broja zahtjeva što zahtjeva bolji i skuplji hardver ali i povećava internet promet zbog učestalih zahtjeva.
+\subsection{Prozivanje}
+Tehnika prozivanja \engl{polling} je tehnika ostvarivanja poslužiteljskih dojava koja koristi periodičko slanje zahtjeva prema poslužitelju i na taj način doznaje ima li poslužitelj relevantnih podataka koje bi klijent trebao dobiti. Ova tehnika ustvari nije prava tehnologija poslužiteljskih dojava jer bi takva tehnologija omogućila poslužitelju slanje podataka klijentu bez zahtjeva klijenta dok to ovdje nije slučaj.
+
+Tehnika prozivanja se obično ostvaruje tako da klijent ostvari vezu prema poslužitelju, pošalje HTTP zahtjeve prema poslužitelju, poslužitelj odgovara klijentu i šalje mu podatke sa dojavom ukoliko je dostupna te se nakon što klijent primi odgovor veza raskida. Ovaj proces bi se periodički ponavljao te bi tako korisnik naizgled imao prave poslužiteljske dojave. Rad poslužiteljskih dojava ostvarene ovom tehnikom prikazan je na slici \ref{fig:polling-image}. Ova tehnika se obično koristila na internetskim stranicama pomoću periodičkih AJAX zahtjeva. 
+
+Problemi ovakve implementacije poslužiteljskih dojava su očiti. Zbog potrebe za slanjem periodičkih HTTP zahtjeva, koji su često i bespotrebni, poslužitelja se tjera na nepotrebnu obradu velikog broja zahtjeva što zahtjeva bolji i skuplji hardver ali i povećava internet promet zbog većeg broja zahtjeva.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=14cm]{img/polling.png}
+\caption{Dijagram razmjene dojava primjenom tehnike prozivanja}
+\label{fig:polling-image}
+\end{figure}
+
+\subsection{Blokirajuće prozivanje}
+Zbog navedenih problema sa normalnom tehnikom prozivanja razvijena je tehnika blokirajućeg prozivanja. Ova tehnika je slična svom prethodniku ali se razlikuje u načinu na koji poslužitelj odgovara. Na slici \ref{fig:long-polling-image} možemo vidjeti kako funkcionira ova tehnologija. 
+
+Koristeći ovu tehniku klijent mora ostvariti vezu sa poslužiteljom, poslati HTTP zahtjev prema poslužitelju ali poslužitelj neće odmah odgovoriti. Kod protokola HTTP TCP veza se održava sve dok klijent ne dobije odgovor. Ova činjenica je ovdje iskorištena na način da će poslužitelj pričekati dok relevantni podatci ili dojave ne budu dostupne pa će tek onda kada je to potrebno poslati odgovor klijentu. Klijent nakon što zaprimi odgovor šalje novi zahtjev poslužitelju i proces se ponavlja. Ako se ipak zbog nekih razloga veza raskine prije nego što poslužitelj pošalje odgovor klijent pokušava ostvariti novu vezu i poslati novi zahtjev. Iako se ovom tehnikom rješava problem velikog broja zahtjeva stvara se novi problem. Većina modernih poslužitelja radi na način da za svaki zahtjev stvara novi proces ili dretvu i nakon obrade zahtjeva prekida proces ili dretvu ili zahtjeve predaje dretvi iz bazena dretvi nakon obrade zahtjeva  vraća dretvu u bazen dretvi. Problem je što koristeći ovu tehniku većinu vremena poslužitelj čeka podatke koje treba poslati a za to vrijeme ima proces ili dretvu koja ne radi ništa osim što koristi resurse poslužitelja koji bi se mogu koristiti za ostale zadatke. Još gori je problem ukoliko se koristi bazen dretvi jer može doći do situacije u kojoj sve dretve iz bazena čekaju podatke pa nema ni jedne dretve dostupne za obradu novih zahtjeva koji čekaju u redu ili se odbacuju.
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=14cm]{img/long-polling.png}
-\caption{Dijagram razmjene dojava primjenom \glqq long polling\grqq\  tehnike}
+\caption{Dijagram razmjene dojava primjenom tehnike blokirajućeg prozivanja}
 \label{fig:long-polling-image}
 \end{figure}
 
-Sustavi koji upotrebljavaju \glqq polling\grqq\  tehniku su ne skalabilni jer veći broj korisnika drastično povećava broj zahtjeva koje server mora obrađivati što je skupo i ne održivo. Zbog navedenih problema sa normalnom \glqq polling\grqq\  tehnikom razvijena je tehnika \glqq long polling\grqq . Ova tehnika je slična svom prethodniku ali se razlikuje u načinu na koji poslužitelj odgovara. Koristeći ovu tehniku klijent mora ostvariti vezu sa poslužiteljom, poslati HTTP zahtjev prema poslužitelju ali poslužitelj neće odmah odgovoriti(slika \ref{fig:long-polling-image}). Kod HTTP-a TCP veza se održava sve dok klijent ne dobije odgovor. Ova činjenica je ovdje iskorištena na način da će poslužitelj pričekati dok relevantni podatci ili dojave ne budu dostupne pa će tek onda kada je to potrebno poslati odgovor klijentu. Klijent nakon što zaprimi odgovor šalje novi zahtjev poslužitelju i proces se ponavlja. Ako se ipak zbog nekih razloga veza raskine prije nego što poslužitelj pošalje odgovor klijent pokušava ostvariti novu vezu i poslati novi zahtjev. Iako se ovom tehnikom rješava problem velikog broja zahtjeva stvara se novi problem. Većina modernih poslužitelja radi na način da za svaki zahtjev stvara novi proces ili dretvu i nakon obrade zahtjeva prekida proces ili dretvu ili zahtjeve predaje dretvi iz bazena dretvi nakon obrade zahtjeva  vraća dretvu u bazen dretvi. Problem je što koristeći ovu tehniku većinu vremena poslužitelj čeka podatke koje treba poslati a za to vrijeme ima proces ili dretvu koja ne radi ništa osim što koristi resurse poslužitelja koji bi se mogu koristiti za ostale zadatke. Još gori je problem ukoliko se koristi bazen dretvi jer može doći do situacije u kojoj sve dretve iz bazena čekaju podatke pa nema ni jedne dretve dostupne za obradu novih zahtjeva koji čekaju u redu ili se odbacuju.
+Sustavi koji upotrebljavaju tehniku blokirajućeg prozivanja su ne skalabilni jer veći broj korisnika drastično povećava broj zahtjeva koje server mora obrađivati što je skupo i ne održivo. 
 
-\subsection{Streaming}
-Pored \glqq polling\grqq\  tehnika imamo i \glqq streaming\grqq\  tehniku ostvarivanja poslužiteljskih dojava. Ova tehnika se ostvaruje pomoću jedne veze koju klijent ostvari sa poslužiteljem koju potom poslužitelj koristi za slanje dojava klijentu. Ako se odlučimo za implementaciju ove tehnike imamo dvije opcije: korištenje metode skrivenih iframe-ova ili korištenje višestrukog odgovora pomoću XMLHttpRequest objekta koji se koristi pri slanju AJAX zahtjeva.
+\subsection{Strujanje}
+Pored tehnike prozivanja i blokirajućeg prozivanja imamo i tehniku strujanja. Ova tehnika se ostvaruje pomoću jedne veze koju klijent ostvari sa poslužiteljem koju potom poslužitelj koristi za slanje dojava klijentu. Ako se odlučimo za implementaciju ove tehnike imamo dvije opcije: korištenje metode skrivenih iframe-ova ili korištenje višestrukog odgovora pomoću XMLHttpRequest objekta koji se koristi pri slanju AJAX zahtjeva.
 
-\glqq iframe\grqq\  je HTML element koji se koristi za ugradnju dokumenta unutar drugog HTML dokumenta. Pri implementaciji streaming Comet tehnike može se koristiti skriveni iframe element čiji će \glqq src\grqq\  atribut pokazivati na URL s kojeg će poslužitelj slati dojave. Svaki put kada poslužitelj ima dojavu za klijenta on će tu dojavu zapakirati u Javascript skriptu koju će klijent dobiti kroz iframe element te će je potom izvršiti.\citep{carbou2011}
+{\tt iframe} je HTML element koji se koristi za ugradnju dokumenta unutar drugog HTML dokumenta. Pri implementaciji streaming Comet tehnike može se koristiti skriveni {\tt iframe} element čiji će {\tt src}  atribut pokazivati na URL s kojeg će poslužitelj slati dojave. Svaki put kada poslužitelj ima dojavu za klijenta on će tu dojavu zapakirati u Javascript skriptu koju će klijent dobiti kroz iframe element te će je potom izvršiti.
+
+Drugi način se ostvaruje koristeći AJAX zahtjev koji očekuje višestruki odgovor, tj. odgovor u više dijelova. Uobičajeno bi poslužitelj poslao odgovore u više dijelova i u zadnjem označio da je riječ o zadnjem što bi dovelo do zatvaranja veze. Kod ove tehnike se koristi činjenica da se veza ne zatvara u koliko ne dođe do odgovora u kojem poslužitelj kaže da je zadnji odgovor i stoga može koristiti vezu za neograničeno slanje poslužiteljskih dojava klijentu. Na slici \ref{fig:streaming-image} je opisan rad ove tehnike. \citep{carbou2011}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=14cm]{img/streaming.png}
+\caption{Dijagram razmjene dojava primjenom strujajuće {\em Comet} tehnike}
+\label{fig:streaming-image}
+\end{figure}
 
 \section{WebSocket}
-Povijesno, stvaranje web aplikacija koje trebaju dvosmjernu komunikaciju između klijenta i poslužitelja zahtijevala je korištenje HTTP-a na način na koji HTTP nije namijenjen. Jednostavnije riješenje bi bilo da se koristi jedna TCP veza. Upravo na tome je radila IETF(engl. Internet Engineering Task Force) i objavila pod RFC 6455 specifikacijom. Protokol se zove WebSocket i zajedno sa WebSocket API-ijem daje alternativu \glqq pollingu\grqq\  i sličnim tehnikama. WebSocket protokol pokušava riješiti ciljeve postojećih dvosmjernih HTTP tehnologija u kontekstu postojeće HTTP infrastrukture. Kao takav, osmišljen je za rad preko HTTP portova 80 i 443, kao i za podršku HTTP posrednika.
+Povijesno, stvaranje web aplikacija koje trebaju dvosmjernu komunikaciju između klijenta i poslužitelja zahtijevala je korištenje protokola HTTP na način na koji HTTP nije namijenjen. Jednostavnije riješenje bi bilo da se koristi jedna TCP veza za slanje svih zahtjeva. Upravo na tome je radila {\em Internet Engineering Task Force} (IETF) skupina i objavila pod RFC 6455 specifikacijom. Protokol se zove WebSocket i zajedno sa WebSocket API-ijem daje alternativu tehnici prozivanja i sličnim tehnikama. WebSocket protokol pokušava riješiti ciljeve postojećih dvosmjernih HTTP tehnologija u kontekstu postojeće HTTP infrastrukture. Kao takav, osmišljen je za rad preko HTTP portova 80 i 443, kao i za podršku HTTP posrednika.
 
 Protokol trenutno podržavaju svi poznatiji internet preglednici poput Firefox(PC i Android verzija), Chrome(PC i mobilna verzija), Safari(PC i iOS verzija), Opera(PC i mobilna verzija), Internet Explorer i Android browser.
 
-Protokol se sastoji od dva dijela: rukovanja\engl{handshake} i prijenosa podataka.\citep{rfc6455}
+Protokol se sastoji od dva dijela: rukovanja\engl{handshake} i prijenosa podataka. \citep{rfc6455}
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=14cm]{img/websocket.png}
-\caption{Dijagram razmjene dojava primjenom \glqq WebSocket\grqq\  tehnologije}
+\caption{Dijagram razmjene dojava primjenom tehnologije {\em WebSocket}}
 \label{fig:websocket-image}
 \end{figure}
 
 \subsection{Rukovanje}
-Klijent tijekom rukovanja poslužitelju šalje zahtjev(kod \ref{lst:websocket-rukovanje-1}) na koji poslužitelj odgovara(kod \ref{lst:websocket-rukovanje-2}).
-\begin{lstlisting}[caption=Zahtjev klijenta tijekom rukovanja, label=lst:websocket-rukovanje-1, float, floatplacement=H]
+Klijent tijekom rukovanja poslužitelju šalje zahtjev prikazan na slici \ref{lst:websocket-rukovanje-1} na koji poslužitelj odgovara odgovorom prikazanom na slici \ref{lst:websocket-rukovanje-2}. Klijent uključuje naziv poslužitelja u {\tt Host} zaglavlje rukovanja prema tako da i klijent i poslužitelj mogu potvrditi da se slažu o tome koji poslužitelj je u upotrebi.
+
+\begin{figure}
+\begin{lstlisting}
 GET /chat HTTP/1.1
 Host: server.example.com
 Upgrade: websocket
@@ -85,25 +113,30 @@ Origin: http://example.com
 Sec-WebSocket-Protocol: chat, superchat
 Sec-WebSocket-Version: 13
 \end{lstlisting}
+\caption{Zahtjev klijenta tijekom rukovanja}
+\label{lst:websocket-rukovanje-1}
+\end{figure}
 
-\begin{lstlisting}[caption=Odgovor poslužitelja tijekom rukovanja, label=lst:websocket-rukovanje-2, float, floatplacement=H]
+\begin{figure}
+\begin{lstlisting}
 HTTP/1.1 101 Switching Protocols
 Upgrade: websocket
 Connection: Upgrade
 Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 Sec-WebSocket-Protocol: chat
 \end{lstlisting}
+\caption{Odgovor poslužitelja tijekom rukovanja}
+\label{lst:websocket-rukovanje-2}
+\end{figure}
 
-Klijent uključuje hostname u Host zaglavlje rukovanja prema tako da i klijent i poslužitelj mogu potvrditi da se slažu o tome koji je host u upotrebi.
+Dodatna polja zaglavlja koriste se za odabir opcija u protokolu {\em WebSocket}. Tipične opcije dostupne u ovoj verziji su selektor podprotokola {\tt Sec-WebSocket-Protocol}, popis ekstenzije podrške od strane klijenta {\tt Sec-WebSocket-Extensions}, zaglavlje {\tt Origin} itd. 
 
-Dodatna polja zaglavlja koriste se za odabir opcija u WebSocket protokolu. Tipične opcije dostupne u ovoj verziji su selektor podprotokola (\glqq Sec-WebSocket-Protocol\grqq\ ), popis ekstenzije podrške od strane klijenta (\glqq Sec-WebSocket-Extensions\grqq\ ), \glqq Origin\grqq\  zaglavlje itd. 
+Zaglavlje zahtjeva {\tt Sec-WebSocket-Protocol} može se upotrijebiti za označavanje podprotokola koje klijent podržava. Poslužitelj odabire jedan ili nijedan od prihvatljivih protokola i šalje tu vrijednost tijekom rukovanja kako bi naznačio da je odabrao taj protokol.
 
-\glqq Sec-WebSocket-Protocol\grqq\  zaglavlje zahtjeva može se upotrijebiti za označavanje podprotokola koje klijent podržava. Poslužitelj odabire jedan ili nijedan od prihvatljivih protokola i šalje tu vrijednost tijekom rukovanja kako bi naznačio da je odabrao taj protokol.
-
-Rukovanje je slično HTTP-u dopuštajući poslužiteljima da obrađuju HTTP i WebSocket veze na istom portu. Kada se uspostavlja veza, komunikacija prelazi na dvosmjerni protokol koji ne odgovara HTTP protokolu. Uz \glqq Upgrade\grqq\  zaglavlje klijent šalje i \glqq Sec-WebSocket-Key\grqq\  zaglavlje koje sadrži nasumične oktet kodirane sa base64 algoritmom a poslužitelj odogovara sa hash vrijednosti tog ključa u \glqq Sec-WebSocket-Accept\grqq\  zaglavlju.
+Rukovanje je slično protokolu HTTP dopuštajući poslužiteljima da obrađuju HTTP i {\em WebSocket} veze na istom portu. Kada se uspostavlja veza, komunikacija prelazi na dvosmjerni protokol koji ne odgovara HTTP protokolu. Uz zaglavlje {\tt Upgrade} klijent šalje i zaglavlje {\tt Sec-WebSocket-Key} koje sadrži nasumične oktet kodirane sa {\em Base64} algoritmom, a poslužitelj odogovara sa hash vrijednosti tog ključa u {\tt Sec-WebSocket-Accept} zaglavlju.
 
 \subsection{Prijenos podataka}
-Nakon rukovanja i klijent i poslužitelj mogu poslati podatke u oba smjera. WebSocket prijenosi zovu se poruke, gdje se jedna poruka može po želji podijeliti na više okvira podataka. To može omogućiti slanje poruka gdje su početni podaci dostupni, ali cjelokupna duljina poruke je nepoznata (šalje se jedan podatkovni okvir nakon drugog dok se ne postigne kraj i označeno s bitom FIN). Uz proširenja protokola, to se također može koristiti za multipleksiranje nekoliko veza istovremeno. 
+Nakon rukovanja i klijent i poslužitelj mogu poslati podatke u oba smjera. WebSocket prijenosi zovu se poruke, gdje se jedna poruka može po želji podijeliti na više okvira podataka. To može omogućiti slanje poruka gdje su početni podaci dostupni, ali cjelokupna duljina poruke je nepoznata (šalje se jedan podatkovni okvir nakon drugog dok se ne postigne kraj i označeno s bitom {\tt FIN}). Uz proširenja protokola, to se također može koristiti za multipleksiranje nekoliko veza istovremeno. 
 
 Svaki okvir ima svoju vrstu ali svi okviri koji čine jednu poruku moraju biti iste vrste. Općenito govoreći, postoje vrste za tekstualne podatke (koji se tumače kao tekst kodiran UTF-8 kodnom stranicom), binarne podatke (čija interpretacija ostaje do aplikacije) i kontrolne okvire (koji nisu namijenjeni za prijenos podataka za aplikaciju Ali umjesto toga za signalizaciju na razini protokola, kao da signalizira da veza bude zatvorena). Ova verzija protokola definira šest vrsta okvira i ostavlja deset rezerviranih za buduću upotrebu.
 
@@ -112,24 +145,25 @@ Svaki okvir ima svoju vrstu ali svi okviri koji čine jednu poruku moraju biti i
 \subsection{Povijest}
 Pojavom Android pametnih mobilnih telefona Google, kompanija iza Androida, tražila je riješenje za omogućivanje dvosmjerne komunikacije između Android aplikacija i poslužitelja. Postojeća rješenja nisu bila dovoljno dobra za mobilne uređaje. Jedan od razloga je da korisnik mobilnog uređaja može od jednom imati veliki broj aplikacija koje zahtjevaju opciju poslužiteljskih dojava a postojeće tehnologije su koristile jednu vezu po aplikaciji. Problem je što su mobilni uređaji relativno slabiji od osobnih uređaja i nisu bili u mogućnosti koristiti veliki broj veza odjednom.
 
-Prva verzija protokola nazvala se AC2DM(Android Cloud to Device Messaging). Protokol je omogućavao sve aplikacije primaju poslužiteljske dojave preko jedne veze sa Google-ovim poslužiteljem. GCM(engl. Google Cloud Messaging) usluga najavljena je u lipnju 2012. kao nasljednik protokola Android Cloud to Device Messaging. Poboljšanja su uključivala poboljšanja za provjeru autentičnosti i isporuke, nove krajnje točke API-ja i parametre za razmjenu poruka, te uklanjanje ograničenja na broj odaslanih poruka i veličine poruka. 2014 godine Google preuzima tvrtku Firebase i pod imenom Firebase Cloud Messaging izbacuje protokol koji je sada dostupan na Android i iOS pametnim mobilnim uređajima ali i na klasičnim web aplikacijama.
+Prva verzija protokola nazvala se {\em Android Cloud to Device Messaging} (AC2DM). Protokol je omogućavao sve aplikacije primaju poslužiteljske dojave preko jedne veze sa Google-ovim poslužiteljem. {\em Google Cloud Messaging} (GCM) usluga najavljena je u lipnju 2012. kao nasljednik protokola Android Cloud to Device Messaging. Poboljšanja su uključivala poboljšanja za provjeru autentičnosti i isporuke, nove krajnje točke API-ja i parametre za razmjenu poruka, te uklanjanje ograničenja na broj odaslanih poruka i veličine poruka. 2014 godine Google preuzima tvrtku Firebase i pod imenom {\em Firebase Cloud Messaging} (FCM) izbacuje protokol koji je sada dostupan na Android i iOS pametnim mobilnim uređajima ali i na klasičnim web aplikacijama.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=1cm]{img/fcm.png}
+\includegraphics[width=14cm]{img/fcm.png}
 \caption{Princip rada Firebase Cloud Messaging servisa}
 \label{fig:fcm-image}
 \end{figure}
 
 \subsection{Prijava na uslugu}
-Firebase Cloud Messaging protokol radi na način da klijent koji na svom uređaju ima barem jednu aplikaciju koju koristi FCM protokol mora ostvariti vezu sa FCM poslužiteljem(slika \ref{fig:fcm-image} postupak 1). Na Android uređajima svaka aplikacija mora imati servis koji će inicirati vezu sa FCM poslužiteljem i dobiti token jedinstven za svaku aplikaciju(slika \ref{fig:fcm-image} postupak 2). Nakon što klijent dobije token on ga šalje svom poslužitelju koji bi trebao token spremiti ukoliko planira slati dojave tom klijentu(slika \ref{fig:fcm-image} postupak 3). 
+Firebase Cloud Messaging protokol radi na način da klijent koji na svom uređaju ima barem jednu aplikaciju koju koristi FCM protokol mora ostvariti vezu sa FCM poslužiteljem kako je prikazano na slici \ref{fig:fcm-image} (1). Na Android uređajima svaka aplikacija mora imati servis koji će inicirati vezu sa FCM poslužiteljem i dobiti token jedinstven za svaku aplikaciju (2). Nakon što klijent dobije token on ga šalje svom poslužitelju koji bi trebao token spremiti ukoliko planira slati dojave tom klijentu (3). 
 
 Klijent isto tako ima mogućnost prijave na razne teme. Teme su skupine klijenata koji žele primati iste dojave a svaka tema se identificira pomoću svog jedinstvenog imena. FCM poslužitelj pamti koji klijenti su se pretplatili na koje teme te koriste tu informaciju prilikom slanja dojave.
 
 \subsection{Slanje dojava i podataka}
-Kada poslužitelj poželi poslati dojavu korisniku on za to koristi token koji je prije toga dobio i FCM poslužitelje. Na FCM poslužitelj šalje JSON objekt preko HTTP ili XMLL protokola. JSON objekt se sastoji od dva atributa: \glqq to\grqq\  ili \glqq condition\grqq , \glqq notification\grqq\  i \glqq data\grqq\ (slika \ref{fig:fcm-image} postupak 4), a zatim FCM poslužitelj obrađuje dojavu, sprema u svoju bazu podataka ako klijent nije spojen ili šalje dojavu klijentu(slika \ref{fig:fcm-image} postupak 5) sa JSON objektom(kod \ref{lst:json-dojava}) kao tijelom poruke.
+Kada poslužitelj poželi poslati dojavu korisniku on za to koristi token koji je prije toga dobio i FCM poslužitelje. Na FCM poslužitelj šalje JSON objekt preko protokola HTTP ili XMLL. JSON objekt se sastoji od dva atributa: {\tt to}  ili {\tt condition}, {\tt notification} i {\tt data} (4). Zatim FCM poslužitelj obrađuje dojavu, sprema u svoju bazu podataka ako klijent nije spojen ili šalje dojavu klijentu (5) sa JSON objektom, kao što je prikazano na slici \ref{lst:json-dojava}, kao tijelom poruke.
 
-\begin{lstlisting}[caption=Primjer JSON objekta kojeg poslužitelj šalje FCM poslužitelju za slanje dojave, label=lst:json-dojava, float]
+\begin{figure}
+\begin{lstlisting}
 {
     "to" : "APA91bHun4MxP5egoKMwt2&\ldots&",
     "notification" : {
@@ -143,20 +177,23 @@ Kada poslužitelj poželi poslati dojavu korisniku on za to koristi token koji j
     }
 }
 \end{lstlisting}
+\caption{Primjer JSON objekta kojeg poslužitelj šalje FCM poslužitelju za slanje dojave}
+\label{lst:json-dojava}
+\end{figure}
 
-Prvi atribut može biti \glqq to\grqq\  ili \glqq condition\grqq\  i oba služe za određivanje klijenta ili više njih kome će slati dojava. Kod atributa \glqq to\grqq\  to može biti token koji je prije toga klijent poslao svom poslužitelju ili može biti ime teme. Vrijednost atributa \glqq condition\grqq\  sadrži neke uvijete koje primatelji moraju ispunjavati, npr. \glqq "condition": "'dogs' in topics || 'cats' in topics"\grqq\  znači da će se dojava poslati klijentima koji su pretplaćeni na teme \glqq dogs\grqq\  ili \glqq cats\grqq\ .U oba slučaja FCM poslužitelj koristi ovaj podatak da razluči kome treba poslati dojavu.
+Prvi atribut može biti {\tt to} ili {\tt condition} i oba služe za određivanje klijenta ili više njih kome će slati dojava. Kod atributa {\tt to} to može biti token koji je prije toga klijent poslao svom poslužitelju ili može biti ime teme. Vrijednost atributa {\tt condition} sadrži neke uvijete koje primatelji moraju ispunjavati, npr. {\tt "condition": "'dogs' in topics || 'cats' in topics"} znači da će se dojava poslati klijentima koji su pretplaćeni na teme {\tt dogs}  ili {\tt cats}. U oba slučaja FCM poslužitelj koristi ovaj podatak da razluči kome treba poslati dojavu.
 
-Atribut \glqq notification\grqq\  se koristi za slanje dojava koje će se prikazati u dijelu za dojave na klijentskom operacijskom sustavu. Ovaj atribut je objekt koji se sastoji od atributa poput \glqq body\grqq , \glqq title\grqq , \glqq icon\grqq , itd. koji određuju informacije koje će se prenijeti ali i koja će se ikonica prikazati uz dojavu ili koji zvuk će se oglasiti prilikom primitka dojave.
+Atribut {\tt notification} se koristi za slanje dojava koje će se prikazati u dijelu za dojave na klijentskom operacijskom sustavu. Ovaj atribut je objekt koji se sastoji od atributa poput {\tt body}, {\tt title}, {\tt icon}, itd. koji određuju informacije koje će se prenijeti ali i koja će se ikonica prikazati uz dojavu ili koji zvuk će se oglasiti prilikom primitka dojave.
 
-Atribut \glqq data\grqq\  se koristi ukoliko se treba poslati veća količina podataka. Pomoću ovog atributa može se poslati do 4kB podataka u obliku ključ-vrijednost. iOS klijent će ove podatke primiti tek kada klijentska aplikacija dođe u prednji plan dok će Android aplikacija obraditi podatke i kad je u pozadini. U slučaju ako se šalju i \glqq notification\grqq\  i \glqq data\grqq\  atribut dojava će se prikazati i ako je aplikacija u pozadini dok će se \glqq data\grqq\  atribut obraditi tek kada aplikacija dođe u prednji plan.\citep{fcm2017}
+Atribut {\tt data} se koristi ukoliko se treba poslati veća količina podataka. Pomoću ovog atributa može se poslati do 4kB podataka u obliku ključ-vrijednost. iOS klijent će ove podatke primiti tek kada klijentska aplikacija dođe u prednji plan dok će Android aplikacija obraditi podatke i kad je u pozadini. U slučaju ako se šalju i {\tt notification} i {\tt data} atribut dojava će se prikazati i ako je aplikacija u pozadini dok će se {\tt data} atribut obraditi tek kada aplikacija dođe u prednji plan.\citep{fcm2017}
 
 \section{Apple Push Notification Service}
 
 Prvi pametni mobilni uređaj iPhone kompanije Apple pokrenuo je revoluciju u razvoju mobilnih uređaja i izmjenio način na koji korisnici koriste svoje mobilne uređaje. Veliki broj aplikacija se oslanjao na poslužiteljske dojave ali nije bilo adekvatnog rješenja. Apple se susreo sa istim problemima kao i njihov konkurent Google pa su se odlučili za izradu vlastitog servisa za poslužiteljske dojave.
 
-2008 godine napravljen je servis nazvan APNs(engl. Apple Push Notification Service). Usluga podržava iOS pametne mobilne telefone, watchOS pametne satove, tvOS pametne televizore i macOS osobna i prijenosna računala.
+2008 godine napravljen je servis nazvan {\em Apple Push Notification Service} (APNs). Usluga podržava iOS pametne mobilne telefone, watchOS pametne satove, tvOS pametne televizore i macOS osobna i prijenosna računala.
 
-Princip rada je sličan Firebase Cloud Messaging usluzi. Klijenti se registriraju kod APNs poslužitelja i APNs vodi računa o vezama sa klijentima. Poslužitelj kada poželi poslati dojavu šalje zahtjev prema APNs poslužitelju koji šalje te dojave klijentima.
+Princip rada je sličan {\em Firebase Cloud Messaging} usluzi. Klijenti se registriraju kod APNs poslužitelja i APNs vodi računa o vezama sa klijentima. Poslužitelj kada poželi poslati dojavu šalje zahtjev prema APNs poslužitelju koji šalje te dojave klijentima.
 
 \begin{figure}[htb]
 \centering
@@ -172,30 +209,37 @@ Po početnom pokretanju aplikacije na korisničkom uređaju sustav automatski us
 
 Poslužitelj pri slanju dojave šalje zahtjev APNs poslužitelju preko HTTP/2 protokola. U tijelu zahtjeva treba poslati JSON objekt koji ne prelazi veličinu od 4kB ili 	VoIP poruku koja ne prelazi 5kB.
 
-JSON objekt se sastoji od atributa \glqq aps\grqq\  i drugih atributa koji nemaju određeno ime a koriste su za prijenos podataka u obliku ključ-vrijednost. Vrijednost atributa \glqq aps\grqq\  je objekt koji sadrži atribute \glqq title\grqq , \glqq body\grqq\ , \glqq alert\grqq , \glqq sound\grqq , itd. koji određuju sadržaj notifikacije i način prikaza. Ako se želi poslati tzv. \glqq tiha\grqq\  dojava pošalje se posebno oblikovani zahtjev(kod \ref{lst:tiha-dojava}).
+JSON objekt se sastoji od atributa {\tt aps} i drugih atributa koji nemaju određeno ime a koriste su za prijenos podataka u obliku ključ-vrijednost. Vrijednost atributa {\tt aps} je objekt koji sadrži atribute {\tt title}, {\tt body}, {\tt alert}, {\tt sound}, itd. koji određuju sadržaj notifikacije i način prikaza. Ako se želi poslati tzv. \glqq tiha\grqq\  dojava pošalje se posebno oblikovani zahtjev(kod \ref{lst:tiha-dojava}). Tiha dojava označava aplikaciji da ima dostupne dojave i da ih može dohvatiti kada to poželi.\citep{apns2017}
 
-\begin{lstlisting}[caption=JSON objekt za \glqq tihu\grqq\  dojavu, label=lst:tiha-dojava, float]
+\begin{figure}
+\begin{lstlisting}
 {
     "aps" : {
         "content-available" : 1
     }
 }
 \end{lstlisting}
-
-Tiha dojava označava aplikaciji da ima dostupne dojave i da ih može dohvatiti kada to poželi.\citep{apns2017}
+\caption{JSON objekt za \glqq tihu\grqq\  dojavu}
+\label{lst:tiha-dojava}
+\end{figure}
 
 \chapter{Arhitektura aplikacije}
 
-\section{Ideja}
 Ideja je napraviti aplikaciju koja korisniku omogućava praćenje događaja poput koncerata, rođendana i sl. i informacija vezanih uz taj događaj. Isto tako korisnici trebaju imati mogućnost kreiranja događaja za koje mogu definirati nekakve atribute poput naziva događaja, opisa, datuma i sl. Svi pratioci koji prate određeni događaj bi trebali dobiti dojavu kada se kreator događaja odluči izmijeniti neki od atributa događaja ili odluči poslati poruku vezanu uz taj događaj. Tako će se dobiti aplikacija koja će biti koristan alat pri organizaciji manjih događaja ali i većih događaja. Aplikacija se lako može pretvoriti u manju društvenu mrežu na kojoj će fokus biti na događajima, a ne na objavama kao većina društvenih mreža. Aplikacija se sastoji od poslužiteljskog dijela i klijentskog dijela.
 
 \section{Protokol za razmjenu podataka}
 
-Za funkcioniranje aplikacije mora se implementirati protokol za razmjenu podataka između poslužitelja i klijenta. Većina razmjene podataka u ovoj aplikaciji otpada na klijentske zahtjeve i poslužiteljske odgovore i stoga će se koristiti HTTP/1.1 koji će u svom tijelu sadržavati poruku u JSON formatu. HTTP i JSON su standardne tehnologije kada su u pitanju slične aplikacije poput ove jer je prijenos podataka jednostavan i ne koristi puno internetskog prometa.
+Za funkcioniranje aplikacije mora se implementirati protokol za razmjenu podataka između poslužitelja i klijenta. Za implementaciju ove aplikacije potrebno je omogućiti dvosmjernu komunikaciju između klijenta i poslužitelja.
+
+Prilikom neke akcije, poput registracije, prijave, stvaranja novog događaja, pretplate na događaj, itd., klijent će podatke slati na poslužitelj koji će obaviti provjeru ispravnosti tih podataka, obraditi ih i odgovoriti klijentu da li su poslani podatci uspješno poslani i poslati će korisniku resurse, poput profila korisnika, liste događaja, itd., ukoliko ih je klijent zatražio.
+
+Korisnik koji je kreirao događaj može ih i promijeniti te poslati poruke vezane uz taj događaj. Kod tih događaja potrebno je obavijestiti druge korisnike koji su se pretplatili na taj događaj o obavljenim promjenama ili novoj poruci sa poslužiteljskom dojavom. Ukoliko korisnik pretplatnik nije trenutno dostupan dojavu treba spremiti te poslati čim postane dostupan.
 
 \section{Autentikacija}
 
-Aplikacija treba imati mogućnosti registracije i prijave kako bi raspoznala korisnike i pamtila njihove odabire. Svaki korisnik bi trebao imati jedinstveno korisničko ime. Prilikom otvaranja klijentske aplikacije korisnika se mora zatražiti da unese svoje korisničko ime i lozinku. Ako se radi o novom korisniku mora mu se ponuditi mogućnost registracije, a pri registraciji korisnici bi trebali unijeti svoje osobne podatke, korisničko ime njihovog budućeg računa i lozinku. Nakon što unese korisničko ime i lozinku korisnik pomoću klijentske aplikacije šalje zahtjev prema poslužitelju koji će utvrditi da li se radi o ispravnim podacima. Ako se radi o ispravnim podacima poslužitelj će izračunati \glqq token\grqq\  koristeći OAuth2 standard. Tijekom svoje komunikacije sa poslužiteljem, klijent će koristiti dobiveni token kako bi poslužitelj svaki put mogao provjeriti da li se zaista radi o pravom korisniku.
+Aplikacija treba imati mogućnosti registracije i prijave kako bi raspoznala korisnike i pamtila njihove odabire. Svaki korisnik bi trebao imati jedinstveno korisničko ime. Prilikom otvaranja klijentske aplikacije korisnika se mora zatražiti da unese svoje korisničko ime i lozinku. Ako se radi o novom korisniku mora mu se ponuditi mogućnost registracije, a pri registraciji korisnici bi trebali unijeti svoje osobne podatke, korisničko ime njihovog budućeg računa i lozinku. Nakon što unese korisničko ime i lozinku korisnik pomoću klijentske aplikacije šalje zahtjev prema poslužitelju koji će utvrditi da li se radi o ispravnim podacima. 
+
+Ako se radi o ispravnim podacima klijent će podatke za prijavu privremeno spremiti na klijentski uređaj. Svaki put kada klijent želi stvoriti novi događaj, poslati poruku, pretplatiti se na događaj i sl. koristiti će te podatke kako bi poslužitelj mogao utvrditi da tu akciju obavlja korisnik koji je za to i autoriziran.
 
 \section{Spremanje podataka}
 
@@ -205,7 +249,7 @@ Poslužiteljski dio je odgovoran za spremanje svih podataka vezanih uz aplikacij
 
 Poslužiteljske dojave se ovdje koriste kao način na koji se obavješćuje pretplatnika o izmjenama u događajima koje prate. Pošto izmjene mogu biti veoma bitne korisniku vrlo je bitno da se poruke dostave u što kraćem roku ali i da se ne izgube ukoliko klijent nije spojen na poslužitelj u tom trenutku(npr. korisnikov uređaj nema pristup internetu ili je ugašen).
 
-\chapter{Implementacija}
+\chapter{Programsko ostvarenje}
 
 \section{Poslužiteljske dojave}
 
@@ -231,7 +275,7 @@ Za prihvaćanje zahtjeva sa klijenta i razvoj API-a koristio sam Jersey. Jersey 
 
 Spremanje podataka i pretraga tih podataka je najvažnija zadaća poslužiteljskog dijela programa. Za bazu podataka sam odabrao MySQL zbog toga što je to besplatna baza podataka otvorenog koda. MySQL je veoma popularna baza podataka i stoga ima veliku potporu zajednice pa je stoga primamljiv odabir naspram drugih besplatnih rješenja. Za rad sa bazom podataka sam koristio knjižnicu za objektno-relacijsko mapiranje Hibernate. Hibernate je implementacija JPA(Java persistency API) specifikacije koja koristi Java objekte za kreiranje tablica i spremanje podataka. Uz osnovne funkcionalnosti objektno-relacijsko mapiranja Hibernate podržava laku integraciju sa sustavima za cache-iranje poput EhCache-a. EhCache će spremati pozive prema bazi podataka u memoriju tako da će uvelike ubrzati rad sa bazama podataka koji često zna usporiti ostatak aplikacije.
 
-Prilikom interakcije sa klijentom bitno je da poslužitelj može pouzdano utvrditi identitet korisnika koji šalje upite i stoga sam koristio Apache Oltu knjižnicu. Apache Oltu podržava OAuth i OAuth2 protokole i ova knjićnica je veoma jednostavna za korištenje.
+Prilikom interakcije sa klijentom bitno je da poslužitelj može pouzdano utvrditi identitet korisnika koji šalje upite i stoga sam koristio Apache Oltu knjižnicu. Apache Oltu podržava OAuth i OAuth2 protokole i ova knjižnica je veoma jednostavna za korištenje.
 
 \chapter{Zaključak}
 

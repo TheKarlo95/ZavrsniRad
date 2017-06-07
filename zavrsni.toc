@@ -3,27 +3,27 @@
 \contentsline {chapter}{\numberline {1}Uvod}{1}
 \contentsline {chapter}{\numberline {2}Tehnologije poslu\IeC {\v z}iteljskih dojava}{2}
 \contentsline {section}{\numberline {2.1}Comet}{2}
-\contentsline {subsection}{\numberline {2.1.1}Polling}{2}
-\contentsline {subsection}{\numberline {2.1.2}Streaming}{4}
-\contentsline {section}{\numberline {2.2}WebSocket}{4}
-\contentsline {subsection}{\numberline {2.2.1}Rukovanje}{5}
-\contentsline {subsection}{\numberline {2.2.2}Prijenos podataka}{6}
-\contentsline {section}{\numberline {2.3}Firebase Cloud Messaging (FCM)}{7}
-\contentsline {subsection}{\numberline {2.3.1}Povijest}{7}
-\contentsline {subsection}{\numberline {2.3.2}Prijava na uslugu}{7}
-\contentsline {subsection}{\numberline {2.3.3}Slanje dojava i podataka}{8}
-\contentsline {section}{\numberline {2.4}Apple Push Notification Service}{9}
-\contentsline {subsection}{\numberline {2.4.1}Prijava na uslugu}{9}
-\contentsline {subsection}{\numberline {2.4.2}Slanje dojava i podataka}{10}
-\contentsline {chapter}{\numberline {3}Arhitektura aplikacije}{12}
-\contentsline {section}{\numberline {3.1}Ideja}{12}
-\contentsline {section}{\numberline {3.2}Protokol za razmjenu podataka}{12}
-\contentsline {section}{\numberline {3.3}Autentikacija}{12}
-\contentsline {section}{\numberline {3.4}Spremanje podataka}{13}
-\contentsline {section}{\numberline {3.5}Poslu\IeC {\v z}iteljske dojave}{13}
-\contentsline {chapter}{\numberline {4}Implementacija}{14}
-\contentsline {section}{\numberline {4.1}Poslu\IeC {\v z}iteljske dojave}{14}
-\contentsline {section}{\numberline {4.2}Klijent}{14}
-\contentsline {section}{\numberline {4.3}Poslu\IeC {\v z}itelj}{15}
-\contentsline {chapter}{\numberline {5}Zaklju\IeC {\v c}ak}{17}
-\contentsline {chapter}{Literatura}{18}
+\contentsline {subsection}{\numberline {2.1.1}Prozivanje}{2}
+\contentsline {subsection}{\numberline {2.1.2}Blokiraju\IeC {\'c}e prozivanje}{3}
+\contentsline {subsection}{\numberline {2.1.3}Strujanje}{5}
+\contentsline {section}{\numberline {2.2}WebSocket}{6}
+\contentsline {subsection}{\numberline {2.2.1}Rukovanje}{7}
+\contentsline {subsection}{\numberline {2.2.2}Prijenos podataka}{8}
+\contentsline {section}{\numberline {2.3}Firebase Cloud Messaging (FCM)}{8}
+\contentsline {subsection}{\numberline {2.3.1}Povijest}{8}
+\contentsline {subsection}{\numberline {2.3.2}Prijava na uslugu}{9}
+\contentsline {subsection}{\numberline {2.3.3}Slanje dojava i podataka}{10}
+\contentsline {section}{\numberline {2.4}Apple Push Notification Service}{11}
+\contentsline {subsection}{\numberline {2.4.1}Prijava na uslugu}{11}
+\contentsline {subsection}{\numberline {2.4.2}Slanje dojava i podataka}{11}
+\contentsline {chapter}{\numberline {3}Arhitektura aplikacije}{13}
+\contentsline {section}{\numberline {3.1}Protokol za razmjenu podataka}{13}
+\contentsline {section}{\numberline {3.2}Autentikacija}{14}
+\contentsline {section}{\numberline {3.3}Spremanje podataka}{14}
+\contentsline {section}{\numberline {3.4}Poslu\IeC {\v z}iteljske dojave}{14}
+\contentsline {chapter}{\numberline {4}Programsko ostvarenje}{15}
+\contentsline {section}{\numberline {4.1}Poslu\IeC {\v z}iteljske dojave}{15}
+\contentsline {section}{\numberline {4.2}Klijent}{15}
+\contentsline {section}{\numberline {4.3}Poslu\IeC {\v z}itelj}{16}
+\contentsline {chapter}{\numberline {5}Zaklju\IeC {\v c}ak}{18}
+\contentsline {chapter}{Literatura}{19}
