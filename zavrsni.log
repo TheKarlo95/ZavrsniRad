@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.5.26)  7 JUN 2017 21:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.5.26)  7 JUN 2017 21:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -903,13 +903,18 @@ File: img/ss-event-profile.png Graphic file (type png)
 Package pdftex.def Info: img/ss-event-profile.png used on input line 340.
 (pdftex.def)             Requested size: 113.81102pt x 202.31786pt.
  [20 <./img/ss-user-profile.png>] [21 <./img/ss-event-profile.png>]
+
+LaTeX Warning: Reference `tbl:endpoints' on page 22 undefined on input line 372
+.
+
+
 Overfull \hbox (15.0273pt too wide) in paragraph at lines 378--393
  [][] 
  []
 
-[22]
+[22] [23]
 Poglavlje 5.
-(./zavrsni.bbl [23
+(./zavrsni.bbl [24
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--12
@@ -929,28 +934,34 @@ Underfull \hbox (badness 10000) in paragraph at lines 19--24
 erworks / library /
  []
 
-) [24
+) [25
 
-] [25] (./zavrsni.aux) ) 
+] [26] (./zavrsni.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 7732 strings out of 493013
- 105548 string characters out of 6139317
+ 7733 strings out of 493013
+ 105563 string characters out of 6139317
  187271 words of memory out of 5000000
- 11096 multiletter control sequences out of 15000+600000
+ 11097 multiletter control sequences out of 15000+600000
  59679 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  43i,7n,40p,1478b,1141s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</us
-r/share/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texmf-dist/fo
-nts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helveti
-c/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/s
-hare/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/t
-ype1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmri8a.
-pfb>
-Output written on zavrsni.pdf (30 pages, 1230388 bytes).
+{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fon
+ts/type1/urw/courier/ucrb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/courier/
+ucrr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/sha
+re/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/
+type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.
+pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on zavrsni.pdf (31 pages, 1231775 bytes).
 PDF statistics:
- 152 PDF objects out of 1000 (max. 8388607)
- 90 compressed objects within 1 object stream
+ 156 PDF objects out of 1000 (max. 8388607)
+ 93 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  76 words of extra memory for PDF output out of 10000 (max. 10000000)
 

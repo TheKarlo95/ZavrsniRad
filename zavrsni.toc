@@ -28,5 +28,5 @@
 \contentsline {subsection}{\numberline {4.2.2}Registracija korisnika}{18}
 \contentsline {subsection}{\numberline {4.2.3}Glavni prozor}{18}
 \contentsline {section}{\numberline {4.3}Poslu\IeC {\v z}itelj}{21}
-\contentsline {chapter}{\numberline {5}Zaklju\IeC {\v c}ak}{23}
-\contentsline {chapter}{Literatura}{24}
+\contentsline {chapter}{\numberline {5}Zaklju\IeC {\v c}ak}{24}
+\contentsline {chapter}{Literatura}{25}

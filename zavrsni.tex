@@ -369,11 +369,11 @@ Authorization: Basic TWFuIGlzIGRpc3Rpbmd1aX=
 \label{lst:register-request}
 \end{figure}
 
-Prilikom interakcije sa klijentom bitno je da poslužitelj može pouzdano utvrditi identitet korisnika koji šalje upite. Fokus ovog rada nije na sigurnosti pa je stoga korišten tehnika {\em HTTP Basic authentication} (BA). Sustav od korisnika zahtjeva da uz svaki zahtjev za koji je potrebna autentikacija šalje zaglavlje u obliku {\tt Authorization: Basic \{Base64 šifra\}} gdje je {\tt \{Base64 šifra\}} korisničko ime i lozinka šifrirana sa {\em Base64} algoritmom. Primjer korištenja ovakve autentikacije možemo vidjeti na slici \ref{lst:register-request}.
+Prilikom interakcije sa klijentom bitno je da poslužitelj može pouzdano utvrditi identitet korisnika koji šalje upite. Fokus ovog rada nije na sigurnosti pa je stoga korišten tehnika {\em HTTP Basic authentication} (BA). Sustav od korisnika zahtjeva da uz svaki zahtjev za koji je potrebna autentikacija šalje zaglavlje u obliku {\tt Authorization: Basic \{Base64 šifra\}} gdje je {\tt \{Base64 šifra\}} korisničko ime i lozinka šifrirana sa {\em Base64} algoritmom. Primjer korištenja ovakve autentikacije možemo vidjeti na slici \ref{lst:register-request}. Sve akcije iz tablice \ref{tbl:endpoints} koje koriste HTTP metode {\tt POST} ili {\tt PATCH}, te metode za dohvat liste kreiranih događaja i liste pretplaćenih događaja zahtjevaju od korisnika da sa zahtjevom pošalje zaglavlje {\tt Authorization}.
 
 \begin{table}[htb]
 \caption{Popis akcija na poslužitelju}
-\label{tbl:konstante}
+\label{tbl:endpoints}
 \centering
 \begin{tabular}{lll} \hline
 Metoda & Putanja & Opis\\ \hline
