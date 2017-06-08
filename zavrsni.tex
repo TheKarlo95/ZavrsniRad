@@ -31,9 +31,16 @@
 
 U 21. stoljeću svjedočimo sve bržem razvoju tehnologija u svim područjima, a najviše na području informacijskih tehnologija i mobilnih tehnologija. Danas je nezamisliv život bez mobilnih uređaja poput prijenosnih računala, pametnih mobitela, tableta, pametnih satova, itd. To potvrđuje podatak da 60\% ljudi posjeduje mobilni telefon i da danas većina ljudi internetu pristupa pomoću mobilnih uređaja. Do tako drastičnog porasta broja korisnika mobilnih uređaja došlo je ponajviše razvojem tzv. pametnih mobitela. Danas tržištem dominiraju Android i iOS pametni mobilni uređaji koji korisniku pružaju mnoge mogućnosti koje nisu bile dostupne tradicionalnim mobilnim telefonima. Uz razvoj mobilnih mreža i bežičnog interneta korisnicima je omogućeno da budu spojeni na internet bez obzira na vrijeme i mjesto gdje se nalaze. Ti podatci drastično mijenjaju način na koji korisnici koriste svoje uređaje. Od uređaja se više ne zahtjeva samo da može pristupiti informacijama bitnih korisniku nego i da može primati informacije iz više izvora u tren kada te informacije budu dostupne. Standardna klijentsko-poslužiteljska arhitektura ne zadovoljava tim uvjeta i u tome je motivacija za razvoj tehnologija poslužiteljskih dojava.
 
-Rana rješenja su došla u obliku tehnike prozivanja 
+U \ref{chp:technologies}. poglavlju proći ćemo kod razvoj tehnologija poslužiteljskih dojava od {\em Comet} tehnologija pa do novijih tehnologija poput protokola {\em WebSocket} i servise {\em Firebase Cloud Messaging} i {\em Apple Push Notification Service}. U tom poglavlju objasniti ćemo način rada pojedine tehnologije, te prednosti i mane.
+
+U \ref{chp:architecture}. poglavlju prolazimo kroz arhitekturu aplikacije za dojavu poruka i promjena na korisniku zanimljivih događaja. Za razvoj aplikacije definirati ćemo podjelu na klijentski i poslužiteljski dio aplikacije te ćemo definirati način razmjene podataka između njih. U ovom poglavlju dotaknuti ćemo se i bitnih dijelova aplikacije poput autentikacije i sustava za poslužiteljske dojave.
+
+U \ref{chp:implementation}. poglavlju preciznije ćemo objasniti rad programskog ostvarenja izrađenog u sklopu ovog rada te raspraviti o korištenim tehnologijama. Također se govori o mogućnostima ove aplikacije i načinu kako korisnik može koristiti ovaj sustav za praćenje raznih događaja ali i organiziranje vlastitih događaja.
 
 \chapter{Tehnologije poslužiteljskih dojava}
+\label{chp:technologies}
+
+Sredinom 90-ih godina prošlog stoljeća počeo je razvoj sustava koji podržavaju poslužiteljske dojave. Isprva, zbog nedostatka već gotovih i praktičnih rješenja, poslužiteljske dojave su se izvodile nekonvencionalnim korištenjem protokola HTTP, izvorno namijenjenog klasičnoj klijentsko-poslužiteljskoj arhitekturi gdje klijent šalje zahtjev i dobija odgovor a ne obrnuto. Te tehnologije su se nazivale {\em Comet} tehnologije. U novije vrijeme razvile su se nove tehnologije poput protokola {\em WebSocket}, ali i servisi poput {\em Firebase Cloud Messaging} i {\em Apple Push Notification Service} koji sadrže više od same usluge poslužiteljskih dojava.
 
 \section{Comet}
 U početcima World Wide Web tehnologije internet preglednici za svaku stranicu poslao više zahtjeva prema poslužitelju, svaki zahtjev za jednu komponentu stranice, npr. HTML dokument, CSS dokument, skripte ili bilo koji drugi resurs koji se upotrebljavao na stranici. Preuzimanje stranice u dijelove podataka poznato je kao model stranica po stranica model \engl{Page-by-Page model}. Za dohvat novog sadržaja stranice stranica se trebala ponovo učitati.
@@ -141,7 +148,6 @@ Svaki okvir ima svoju vrstu ali svi okviri koji čine jednu poruku moraju biti i
 
 \section{Firebase Cloud Messaging (FCM)}
 
-\subsection{Povijest}
 Pojavom Android pametnih mobilnih telefona Google, kompanija iza Androida, tražila je riješenje za omogućivanje dvosmjerne komunikacije između Android aplikacija i poslužitelja. Postojeća rješenja nisu bila dovoljno dobra za mobilne uređaje. Jedan od razloga je da korisnik mobilnog uređaja može od jednom imati veliki broj aplikacija koje zahtjevaju opciju poslužiteljskih dojava a postojeće tehnologije su koristile jednu vezu po aplikaciji. Problem je što su mobilni uređaji relativno slabiji od osobnih uređaja i nisu bili u mogućnosti koristiti veliki broj veza odjednom.
 
 Prva verzija protokola nazvala se {\em Android Cloud to Device Messaging} (AC2DM). Protokol je omogućavao sve aplikacije primaju poslužiteljske dojave preko jedne veze sa Google-ovim poslužiteljem. {\em Google Cloud Messaging} (GCM) usluga najavljena je u lipnju 2012. kao nasljednik protokola Android Cloud to Device Messaging. Poboljšanja su uključivala poboljšanja za provjeru autentičnosti i isporuke, nove krajnje točke API-ja i parametre za razmjenu poruka, te uklanjanje ograničenja na broj odaslanih poruka i veličine poruka. 2014 godine Google preuzima tvrtku Firebase i pod imenom {\em Firebase Cloud Messaging} (FCM) izbacuje protokol koji je sada dostupan na Android i iOS pametnim mobilnim uređajima ali i na klasičnim web aplikacijama.
@@ -209,7 +215,7 @@ Poslužitelj pri slanju dojave šalje zahtjev APNs poslužitelju preko HTTP/2 pr
 
 JSON objekt se sastoji od atributa {\tt aps} i drugih atributa koji nemaju određeno ime a koriste su za prijenos podataka u obliku ključ-vrijednost. Vrijednost atributa {\tt aps} je objekt koji sadrži atribute {\tt title}, {\tt body}, {\tt alert}, {\tt sound}, itd. koji određuju sadržaj notifikacije i način prikaza. Ako se želi poslati tzv. \glqq tiha\grqq\  dojava pošalje se posebno oblikovani zahtjev(kod \ref{lst:tiha-dojava}). Tiha dojava označava aplikaciji da ima dostupne dojave i da ih može dohvatiti kada to poželi.\citep{apns2017}
 
-\begin{figure}
+\begin{figure}[t!]
 \begin{lstlisting}
 {
     "aps" : {
@@ -222,6 +228,7 @@ JSON objekt se sastoji od atributa {\tt aps} i drugih atributa koji nemaju odre�
 \end{figure}
 
 \chapter{Arhitektura aplikacije}
+\label{chp:architecture}
 
 Ideja je napraviti aplikaciju koja korisniku omogućava praćenje događaja poput koncerata, rođendana i sl. i informacija vezanih uz taj događaj. Isto tako korisnici trebaju imati mogućnost kreiranja događaja za koje mogu definirati nekakve atribute poput naziva događaja, opisa, datuma i sl. Svi pratioci koji prate određeni događaj bi trebali dobiti dojavu kada se kreator događaja odluči izmijeniti neki od atributa događaja ili odluči poslati poruku vezanu uz taj događaj. Tako će se dobiti aplikacija koja će biti koristan alat pri organizaciji manjih događaja ali i većih događaja. Aplikacija se lako može pretvoriti u manju društvenu mrežu na kojoj će fokus biti na događajima, a ne na objavama kao većina društvenih mreža. Aplikacija se sastoji od poslužiteljskog dijela i klijentskog dijela.
 
@@ -251,6 +258,7 @@ Poslužiteljski dio je odgovoran za spremanje svih podataka vezanih uz aplikacij
 Poslužiteljske dojave se ovdje koriste kao način na koji se obavješćuje pretplatnika o izmjenama u događajima koje prate. Pošto izmjene mogu biti veoma bitne korisniku vrlo je bitno da se poruke dostave u što kraćem roku ali i da se ne izgube ukoliko klijent nije spojen na poslužitelj u tom trenutku(npr. korisnikov uređaj nema pristup internetu ili je ugašen).
 
 \chapter{Programsko ostvarenje}
+\label{chp:implementation}
 
 \section{Poslužiteljske dojave}
 Prilikom odabira tehnologije za poslužiteljske dojave velika pažnja je bila na brzini slanja dojava i načinu na koji određena tehnologija rješava problem korisnika koji nije spojen na poslužitelj u trenutku dolaska dojave. Isto tako bitno je koje sve platforme ta tehnologija podržava jer bi u budućnosti mogli poželjeti izraditi klijentsku aplikaciju za neku drugu platformu.
