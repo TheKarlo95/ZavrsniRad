@@ -90,6 +90,64 @@ Drugi način se ostvaruje koristeći AJAX zahtjev koji očekuje višestruki odgo
 \label{fig:streaming-image}
 \end{figure}
 
+\section{Server Sent Events}
+
+Poslužiteljske dojave pomoću AJAX zahtjev koji očekuje višestruki odgovor su dobro rješenje ali nedostaje precizna specifikacija koja bi opisala postupak implementacije takvog sustava. Skupina {\em Web Hypertext Application Technology Working Group} (WHATWG) ovaj problem je riješila sa svojim predloškom {\em Web Application 1.0}. Nakon što je web preglednik {\em Opera} implementirala ovu specifikaciju u listopadu 2006. godine ona se počinje nazivati {\em Server Sent Events} (SSE).
+
+Upotreba ove specifikacije umjesto da se imitira pomoću Javascript objekta {\em XMLHttpRequest} ili HTML oznake {\em iframe} omogućuje klijentskoj aplikaciji bolju upotrebu mrežnih resursa, a to može rezultirati značajnim uštedama u trajanju baterije na prijenosnim uređajima.
+
+\subsection{Sučelje MessageEvent}
+Sučelje {\em MessageEvent} se koristi za poruke u velikom broju protokola poput {\em Server Sent Events}, {\em WebSocket}, {\em cross-document messaging}, {\em channel messaging} i {\em broadcast channels}. Sastoji se od pet ne promjenjivih atributa {\tt data}, {\tt origin}, {\tt lastEventId}, {\tt source} i {\tt ports} prikazanih u tablici \ref{tbl:messageevent}.
+
+\begin{table}[htb]
+\caption{Atributi sučelja {\em MessageEvent}}
+\label{tbl:messageevent}
+\centering
+\begin{tabular}{lll} \hline
+Atribut & Opis \\ \hline
+event.data & Sadrži poruku koja je poslana\\
+event.origin & Podrijetlo poruke(obično shema, host i port ali ne i putanja)\\
+event.lastEventId & Id zadnjeg događaja\\
+event.source & Ne koristi se za SSE\\
+event.ports & Ne koristi se za SSE\\
+\end{tabular}
+\end{table}
+
+\subsection{Poruke}
+Korištenje ove specifikacije u klijentskoj web aplikaciji je vrlo jednostavno. Primjer korištenja je prikazan na slici \ref{lst:eventsource}. Kako bi mogli primati poruke treba nam {\em Javascript} objekt {\tt EventSource} kojeg stvaramo tako što njegovom konstruktoru predamo URL sa kojeg klijentska aplikacija treba primati poslužiteljske dojave. Za svaku poruku koju klijent primi pozove se funkcija predana {\tt onmessage} atributu koja je odgovorna za obradu poruke.
+
+\begin{figure}
+\begin{lstlisting}
+var source = new EventSource('updates.cgi');
+source.onmessage = function (event) {
+  alert(event.data);
+};
+\end{lstlisting}
+\caption{Primjer korištenja {\tt EventSource} objekta za prikaz poslužiteljskih dojava}
+\label{lst:eventsource}
+\end{figure}
+
+Nakon poziva konstruktora objekta {\tt EventSource} šalje se zahtjev poslužitelju sa predanim URL-om, a poslužitelj mu odgovara sa {\tt HTTP 200 OK} odgovorom koji sadrži zaglavlje {\tt Content-Type: text/event-stream}. Nakon toga klijent najavljuje vezu tako što postavlja atribut {\tt readyState} na {\tt OPEN} i šalje događaj naziva {\tt open}. Nakon toga poslužitelj može početi sa slanjem poruka.
+
+Primjere poruka možemo vidjeti na slici \ref{lst:sse-messages} gdje je prikazano 3 poruke. Svaki poruka je kodirana sa UTF-8 kodnom stranicom i može se sastojati od više dijelova kao što se u primjeru na slici \ref{lst:sse-messages} prikazane poruke od dva dijela. Svaki redak se interpretira na način da tekst prije znaka {\tt :} označava polje(npr. {{\tt data}, {\tt event}, {\tt id} ili {\tt retry}). Drugi dio događaja označava vrijednost tog polja. Ukoliko redak ne sadrži znak {\tt :} onda se vrijednost tog polja tretira kao prazni tekst. Ukoliko imamo prazan redak onda treba odaslati dojavu sa svim prije napisanim redovima.
+
+Svako ime polja ime posebnu namjenu. Ime polja {\tt event} to označava tip poruke, {\tt data} dodaje svoju vrijednost u {\tt data} atribut, {\tt id} postavlja {\tt lastEventId} atribut a polje sa imenom {\tt retry} postavlja vrijeme ponovnog povezivanja na vrijednost tog polja koje mora biti cjelobrojni broj. 
+
+\begin{figure}
+\begin{lstlisting}
+event: add
+data: 73857293
+
+event: remove
+data: 2153
+
+event: add
+data: 113411
+\end{lstlisting}
+\caption{Primjeri SSE poruka}
+\label{lst:sse-messages}
+\end{figure}
+
 \section{WebSocket}
 Povijesno, stvaranje web aplikacija koje trebaju dvosmjernu komunikaciju između klijenta i poslužitelja zahtijevala je korištenje protokola HTTP na način na koji HTTP nije namijenjen. Jednostavnije riješenje bi bilo da se koristi jedna TCP veza za slanje svih zahtjeva. Upravo na tome je radila {\em Internet Engineering Task Force} (IETF) skupina i objavila pod RFC 6455 specifikacijom. Protokol se zove WebSocket i zajedno sa WebSocket API-ijem daje alternativu tehnici prozivanja i sličnim tehnikama. WebSocket protokol pokušava riješiti ciljeve postojećih dvosmjernih HTTP tehnologija u kontekstu postojeće HTTP infrastrukture. Kao takav, osmišljen je za rad preko HTTP portova 80 i 443, kao i za podršku HTTP posrednika.
 
@@ -384,18 +442,18 @@ Prilikom interakcije sa klijentom bitno je da poslužitelj može pouzdano utvrdi
 \centering
 \begin{tabular}{lll} \hline
 Metoda & Putanja & Opis\\ \hline
-POST & /users/login & Prijava korisnika \\
-POST & /users & Registracija korisnika \\
-GET & /users & Dohvat liste svih korisnika  \\
-GET & /users/\{id\} & Dohvat profila korisnika pomoću id-a \\
-PATCH & /users/\{id\}/token & Osvježavanje FCM tokena \\
-POST & /events & Stvara događaj \\
-GET & /events & Dohvat liste svih događaja  \\
+POST & /users/login & Prijava korisnika\\
+POST & /users & Registracija korisnika\\
+GET & /users & Dohvat liste svih korisnika\\
+GET & /users/\{id\} & Dohvat profila korisnika pomoću id-a\\
+PATCH & /users/\{id\}/token & Osvježavanje FCM tokena\\
+POST & /events & Stvara događaj\\
+GET & /events & Dohvat liste svih događaja\\
 GET & /events/\{id\}/events & Dohvat liste događaja\\
-GET & /users/\{id\}/followed & Dohvat profila korisnika pomoću id-a \\
-PATCH & /users/\{userId\}/follow/\{eventId\}" & Pretplaćivanje na događaja \\
-PATCH & /users/\{userId\}/unfollow/\{eventId\}" & Prekid pretplate na događaj \\
-POST & /events/{Id}/messages & Stvara poruku za zadani događaj \\ \hline
+GET & /users/\{id\}/followed & Dohvat profila korisnika pomoću id-a\\
+PATCH & /users/\{userId\}/follow/\{eventId\}" & Pretplaćivanje na događaja\\
+PATCH & /users/\{userId\}/unfollow/\{eventId\}" & Prekid pretplate na događaj\\
+POST & /events/{Id}/messages & Stvara poruku za zadani događaj\\ \hline
 \end{tabular}
 \end{table}
 
