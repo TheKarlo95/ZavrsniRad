@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.5.26)  18 JUN 2017 20:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.5.26)  26 JUN 2017 19:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -808,128 +808,127 @@ LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10> not available
 File: img/websocket.png Graphic file (type png)
  <use img/websocket.png>
 Package pdftex.def Info: img/websocket.png used on input line 161.
-(pdftex.def)             Requested size: 412.56497pt x 227.02956pt.
+(pdftex.def)             Requested size: 341.43306pt x 187.88545pt.
 
-[8 <./img/websocket.png>]
-Overfull \hbox (9.66505pt too wide) in paragraph at lines 196--197
+Overfull \hbox (9.66505pt too wide) in paragraph at lines 190--191
 \T1/ptm/m/n/12 op-cije dos-tupne u ovoj ver-ziji su se-lek-tor pod-pro-to-kola 
 \T1/pcr/m/n/12 Sec-WebSocket-Protocol\T1/ptm/m/n/12 ,
  []
 
-[9] <img/fcm.png, id=63, 572.1375pt x 600.2425pt>
+[8 <./img/websocket.png>] [9] <img/fcm.png, id=63, 570.13pt x 439.6425pt>
 File: img/fcm.png Graphic file (type png)
- <use img/fcm.png>
-Package pdftex.def Info: img/fcm.png used on input line 215.
-(pdftex.def)             Requested size: 412.56497pt x 432.83371pt.
+
+<use img/fcm.png>
+Package pdftex.def Info: img/fcm.png used on input line 209.
+(pdftex.def)             Requested size: 284.52756pt x 219.40479pt.
  [10]
-[11 <./img/fcm.png>]
-Overfull \hbox (25.43942pt too wide) in paragraph at lines 235--236
+Overfull \hbox (25.43942pt too wide) in paragraph at lines 229--230
 [][][][][][][][][][][][][][][][][][][][][][]\T1/pcr/b/n/10 ¢[][][][][][][][][][
 ] 
  []
 
 
-Overfull \hbox (6.74812pt too wide) in paragraph at lines 247--248
+Overfull \hbox (6.74812pt too wide) in paragraph at lines 241--242
 \T1/ptm/m/n/12 drºi neke uvi-jete koje pri-ma-te-lji mo-raju is-pu-nja-vati, np
 r. \T1/pcr/m/n/12 "condition": "'dogs'
  []
 
-[12] <img/apns.png, id=74, 528.97626pt x 391.4625pt>
+[11 <./img/fcm.png>] [12] <img/apns.png, id=74, 528.97626pt x 391.4625pt>
 File: img/apns.png Graphic file (type png)
- <use img/apns.png>
-Package pdftex.def Info: img/apns.png used on input line 263.
-(pdftex.def)             Requested size: 412.56497pt x 305.31561pt.
 
-[13 <./img/apns.png>] [14]
+<use img/apns.png>
+Package pdftex.def Info: img/apns.png used on input line 257.
+(pdftex.def)             Requested size: 341.43306pt x 252.67355pt.
+ [13 <./img/apns.png>] [14]
 Poglavlje 3.
 <img/event-subscription.png, id=83, 528.97626pt x 361.35pt>
 File: img/event-subscription.png Graphic file (type png)
 
 <use img/event-subscription.png>
-Package pdftex.def Info: img/event-subscription.png used on input line 302.
-(pdftex.def)             Requested size: 412.56497pt x 281.8298pt.
+Package pdftex.def Info: img/event-subscription.png used on input line 296.
+(pdftex.def)             Requested size: 341.43306pt x 233.23714pt.
  [15
 
 ] [16 <./img/event-subscription.png>]
-<img/architecture.png, id=91, 520.94624pt x 344.28625pt>
+<img/er.png, id=91, 610.28pt x 369.38pt>
+File: img/er.png Graphic file (type png)
+ <use img/er.png>
+Package pdftex.def Info: img/er.png used on input line 313.
+(pdftex.def)             Requested size: 341.43306pt x 206.66539pt.
+ [17 <./img/er.png>]
+[18]
+Poglavlje 4.
+<img/architecture.png, id=99, 520.94624pt x 344.28625pt>
 File: img/architecture.png Graphic file (type png)
 
 <use img/architecture.png>
-Package pdftex.def Info: img/architecture.png used on input line 320.
-(pdftex.def)             Requested size: 412.56497pt x 272.66083pt.
- [17 <./img/architecture.png>]
-Poglavlje 4.
-[18
+Package pdftex.def Info: img/architecture.png used on input line 365.
+(pdftex.def)             Requested size: 284.52756pt x 188.03941pt.
+ [19
 
-] <img/ss-login.png, id=99, 1445.4pt x 2569.6pt>
+] [20 <./img/architecture.png>]
+<img/ss-login.png, id=108, 1445.4pt x 2569.6pt>
 File: img/ss-login.png Graphic file (type png)
  <use img/ss-login.png>
-Package pdftex.def Info: img/ss-login.png used on input line 349.
+Package pdftex.def Info: img/ss-login.png used on input line 384.
 (pdftex.def)             Requested size: 113.81102pt x 202.31786pt.
-
-[19] <img/ss-register.png, id=103, 1445.4pt x 2569.6pt>
+ [21 <./img/ss-login.png>] <img/ss-register.png, id=112, 1445.4pt x 2569.6pt>
 File: img/ss-register.png Graphic file (type png)
 
 <use img/ss-register.png>
-Package pdftex.def Info: img/ss-register.png used on input line 359.
+Package pdftex.def Info: img/ss-register.png used on input line 394.
 (pdftex.def)             Requested size: 113.81102pt x 202.31786pt.
- [20 <./img/ss-login.png> <./img/ss-register.png>]
-<img/ss-user-list.png, id=108, 1445.4pt x 2569.6pt>
+ <img/ss-user-list.png, id=113, 1445.4pt x 2569.6pt>
 File: img/ss-user-list.png Graphic file (type png)
- <use img/ss-user-list.png>
-Package pdftex.def Info: img/ss-user-list.png used on input line 374.
+
+<use img/ss-user-list.png>
+Package pdftex.def Info: img/ss-user-list.png used on input line 409.
 (pdftex.def)             Requested size: 92.82648pt x 164.991pt.
 
-<img/ss-event-list-all.png, id=109, 1445.4pt x 2569.6pt>
+<img/ss-event-list-all.png, id=114, 1445.4pt x 2569.6pt>
 File: img/ss-event-list-all.png Graphic file (type png)
 
 <use img/ss-event-list-all.png>
-Package pdftex.def Info: img/ss-event-list-all.png used on input line 380.
+Package pdftex.def Info: img/ss-event-list-all.png used on input line 415.
 (pdftex.def)             Requested size: 92.82648pt x 164.991pt.
 
-<img/ss-event-list-followed.png, id=110, 1445.4pt x 2569.6pt>
+<img/ss-event-list-followed.png, id=115, 1445.4pt x 2569.6pt>
 File: img/ss-event-list-followed.png Graphic file (type png)
 
 <use img/ss-event-list-followed.png>
-Package pdftex.def Info: img/ss-event-list-followed.png used on input line 386.
+Package pdftex.def Info: img/ss-event-list-followed.png used on input line 421.
 
 (pdftex.def)             Requested size: 92.82648pt x 164.991pt.
 
-<img/ss-event-list-my.png, id=111, 1445.4pt x 2569.6pt>
+<img/ss-event-list-my.png, id=116, 1445.4pt x 2569.6pt>
 File: img/ss-event-list-my.png Graphic file (type png)
 
 <use img/ss-event-list-my.png>
-Package pdftex.def Info: img/ss-event-list-my.png used on input line 392.
+Package pdftex.def Info: img/ss-event-list-my.png used on input line 427.
 (pdftex.def)             Requested size: 92.82648pt x 164.991pt.
 
-<img/ss-user-profile.png, id=112, 1445.4pt x 2569.6pt>
+<img/ss-user-profile.png, id=117, 1445.4pt x 2569.6pt>
 File: img/ss-user-profile.png Graphic file (type png)
 
 <use img/ss-user-profile.png>
-Package pdftex.def Info: img/ss-user-profile.png used on input line 404.
+Package pdftex.def Info: img/ss-user-profile.png used on input line 439.
 (pdftex.def)             Requested size: 113.81102pt x 202.31786pt.
- [21 <./img/ss-user-list.png> <./img/ss-event-list-all.png> <./img/ss-event-lis
-t-followed.png> <./img/ss-event-list-my.png>]
-<img/ss-event-profile.png, id=116, 1445.4pt x 2569.6pt>
+ [22 <./img/ss-register.png>] [23 <./img/ss-user-list.png> <./img/ss-event-list
+-all.png> <./img/ss-event-list-followed.png> <./img/ss-event-list-my.png>]
+<img/ss-event-profile.png, id=124, 1445.4pt x 2569.6pt>
 File: img/ss-event-profile.png Graphic file (type png)
 
 <use img/ss-event-profile.png>
-Package pdftex.def Info: img/ss-event-profile.png used on input line 415.
+Package pdftex.def Info: img/ss-event-profile.png used on input line 450.
 (pdftex.def)             Requested size: 113.81102pt x 202.31786pt.
- [22 <./img/ss-user-profile.png>]
-<img/er.png, id=120, 611.28375pt x 249.93375pt>
-File: img/er.png Graphic file (type png)
- <use img/er.png>
-Package pdftex.def Info: img/er.png used on input line 428.
-(pdftex.def)             Requested size: 412.56497pt x 168.68274pt.
- [23 <./img/ss-event-profile.png> <./img/er.png>] [24]
-Overfull \hbox (15.0273pt too wide) in paragraph at lines 498--513
+ [24 <./img/ss-user-profile.png>] [25 <./img/ss-event-profile.png>]
+Overfull \hbox (15.0273pt too wide) in paragraph at lines 491--506
  [][] 
  []
 
-[25] [26]
+[26] [27]
 Poglavlje 5.
-(./zavrsni.bbl [27
+(./zavrsni.bbl [28
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--12
@@ -949,18 +948,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 19--24
 erworks / library /
  []
 
-) [28
+) [29
 
-] [29] (./zavrsni.aux) )
+] [30] (./zavrsni.aux) )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 133 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 7807 strings out of 493013
- 106736 string characters out of 6139317
- 186930 words of memory out of 5000000
- 11164 multiletter control sequences out of 15000+600000
+ 7806 strings out of 493013
+ 106707 string characters out of 6139317
+ 187919 words of memory out of 5000000
+ 11163 multiletter control sequences out of 15000+600000
  60300 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  43i,9n,40p,1478b,1181s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -970,10 +969,10 @@ texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texmf-dist/fonts/type
 .pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/tex
 mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw
 /times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on zavrsni.pdf (34 pages, 1278429 bytes).
+Output written on zavrsni.pdf (35 pages, 1317099 bytes).
 PDF statistics:
- 169 PDF objects out of 1000 (max. 8388607)
- 99 compressed objects within 1 object stream
+ 173 PDF objects out of 1000 (max. 8388607)
+ 101 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  86 words of extra memory for PDF output out of 10000 (max. 10000000)
 

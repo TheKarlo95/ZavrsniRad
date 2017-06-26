@@ -29,23 +29,23 @@
 
 \chapter{Uvod}
 
-U 21. stoljeću tehnologije u svim područjima se sve brže razvijaju, a najviše na području informacijskih tehnologija i mobilnih tehnologija. Danas je nezamisliv život bez mobilnih uređaja poput prijenosnih računala, pametnih mobitela, tableta, pametnih satova, itd. To potvrđuje podatak da 60\% ljudi posjeduje mobilni telefon i da danas većina ljudi internetu pristupa pomoću mobilnih uređaja. Do tako drastičnog porasta broja korisnika mobilnih uređaja došlo je ponajviše razvojem tzv. pametnih mobitela. Danas tržištem dominiraju pametni mobilni uređaji sa Android i iOS operativnim sustavima koji korisniku pružaju mnoge mogućnosti koje nisu bile dostupne tradicionalnim mobilnim telefonima. Uz razvoj mobilnih mreža i bežičnog interneta korisnicima je omogućeno da budu spojeni na Internet bez obzira na vrijeme i mjesto gdje se nalaze. Ti podatci drastično mijenjaju način na koji korisnici koriste svoje uređaje. Od uređaja se više ne zahtjeva samo da može pristupiti informacijama bitnih korisniku nego i da može primati informacije iz više izvora u tren kada te informacije budu dostupne. Standardna klijentsko-poslužiteljska arhitektura ne zadovoljava tim uvjeta i u tome je motivacija za razvoj tehnologija poslužiteljskih dojava.
+U 21. stoljeću tehnologije u svim područjima se sve brže razvijaju, a najviše na području informacijskih tehnologija i mobilnih tehnologija. Danas je nezamisliv život bez mobilnih uređaja poput prijenosnih računala, pametnih mobitela, tableta, pametnih satova, itd. To potvrđuje podatak da 60\% ljudi posjeduje mobilni telefon i da danas većina ljudi Internetu pristupa pomoću mobilnih uređaja. Do tako drastičnog porasta broja korisnika mobilnih uređaja došlo je ponajviše razvojem tzv. pametnih mobitela. Danas tržištem dominiraju pametni mobilni uređaji sa Android i iOS operacijskim sustavima koji korisniku pružaju mnoge mogućnosti koje nisu bile dostupne tradicionalnim mobilnim telefonima. Uz razvoj mobilnih mreža i bežičnog interneta korisnicima je omogućeno da budu spojeni na Internet bez obzira na vrijeme i mjesto gdje se nalaze. Ti podatci drastično mijenjaju način na koji korisnici koriste svoje uređaje. Od uređaja se više ne zahtjeva samo da može pristupiti informacijama bitnim korisniku nego i da može primati informacije iz više izvora u trenutku kada te informacije budu dostupne. Standardna klijentsko-poslužiteljska arhitektura ne zadovoljava tim uvjeta i to je pokretač za razvoj tehnologija poslužiteljskih dojava.
 
-\ref{chp:technologies}. poglavlje govori o razvoju tehnologija poslužiteljskih dojava od {\em Comet} tehnologija pa do novijih tehnologija poput protokola {\em WebSocket} i usluge {\em Firebase Cloud Messaging} i {\em Apple Push Notification Service}. U tom poglavlju objasniti ćemo način rada pojedine tehnologije te prednosti i mane.
+Prvo poglavlje govori o razvoju tehnologija poslužiteljskih dojava od {\em Comet} tehnologija pa do novijih tehnologija poput protokola {\em WebSocket} i sustava {\em Firebase Cloud Messaging} i {\em Apple Push Notification Service}. U tom poglavlju objasniti ćemo način rada pojedine tehnologije te prednosti i mane.
 
-Slijedeće, \ref{chp:architecture}. poglavlje govori o arhitekturi aplikacije za dojavu poruka i promjena na korisniku zanimljivih događaja. Za razvoj aplikacije definirati ćemo podjelu na klijentski i poslužiteljski dio aplikacije te ćemo definirati način razmjene podataka između njih. U ovom poglavlju dotaknuti ćemo se i bitnih dijelova aplikacije poput autentikacije i sustava za poslužiteljske dojave.
+Slijedeće, drugo poglavlje govori o arhitekturi sustava za dojavu poruka i promjena na korisniku zanimljivih događaja koji je razvijen u sklopu ovog rada. U sklopu razvoja sustava on je podijeljen na klijentski i poslužiteljski dio sustava te se definira način razmjene podataka između njih. U ovom poglavlju također se opisuje dijelova sustava poput autentikacije i sustava za poslužiteljske dojave.
 
-U \ref{chp:implementation}. poglavlju preciznije se objašnjava rad programskog ostvarenja izrađenog u sklopu ovog rada te raspraviti o korištenim tehnologijama. Također se govori o mogućnostima ove aplikacije i načinu kako korisnik može koristiti ovaj sustav za praćenje raznih događaja ali i organiziranje vlastitih događaja.
+U trećem poglavlju preciznije se objašnjava rad programskog ostvarenja izrađenog u sklopu ovog rada te raspraviti o korištenim tehnologijama. Također se govori o mogućnostima ovog sustava i načinu kako korisnik može koristiti ovaj sustav za praćenje raznih događaja, ali i organiziranje vlastitih događaja.
 
 \chapter{Tehnologije poslužiteljskih dojava}
 \label{chp:technologies}
 
-Sredinom 90-ih godina prošlog stoljeća počeo je razvoj sustava koji podržavaju poslužiteljske dojave. Isprva, zbog nedostatka već gotovih i praktičnih rješenja, poslužiteljske dojave su se izvodile nekonvencionalnim korištenjem protokola HTTP, izvorno namijenjenog uporabi gdje klijent šalje zahtjev i dobija odgovor. Te tehnologije su se nazivale {\em Comet} tehnologije. U novije vrijeme razvile su se nove tehnologije poput protokola {\em WebSocket}, ali i usluga poput {\em Firebase Cloud Messaging} i {\em Apple Push Notification Service} koji sadrže više od same usluge poslužiteljskih dojava.
+Sredinom 90-ih godina prošlog stoljeća počeo je razvoj sustava koji podržavaju poslužiteljske dojave. Isprva, zbog nedostatka već gotovih i praktičnih rješenja, poslužiteljske dojave su se izvodile nekonvencionalnim korištenjem protokola HTTP, izvorno namijenjenog uporabi na način da klijent šalje zahtjev i dobija odgovor. Te tehnologije su se nazivale {\em Comet} tehnologije. U novije vrijeme razvile su se nove tehnologije poput protokola {\em WebSocket}, ali i usluga poput {\em Firebase Cloud Messaging} i {\em Apple Push Notification Service} koji sadrže više od same usluge poslužiteljskih dojava.
 
 \section{Comet}
-U početcima World Wide Web tehnologije Internet preglednici za svaku stranicu poslao više zahtjeva prema poslužitelju, svaki zahtjev za jednu komponentu stranice, npr. HTML dokument, CSS dokument, skripte ili bilo koji drugi resurs koji se upotrebljavao na stranici. Preuzimanje stranice u dijelove podataka poznato je kao model stranica po stranica model \engl{Page-by-Page model}. Za dohvat novog sadržaja stranice stranica se trebala ponovo učitati.
+U početcima World Wide Web tehnologije Internet preglednici bi za svaku stranicu poslali više zahtjeva prema poslužitelju, svaki zahtjev za jednu komponentu stranice, npr. HTML dokument, CSS dokument, skripte ili bilo koji drugi resurs koji se upotrebljavao na stranici. Preuzimanje stranice u dijelove podataka poznato je kao model stranica po stranica model \engl{Page-by-Page model}. Za dohvat novog sadržaja stranice stranica se trebala ponovo učitati.
 
-{\em Asynchronous Javascript and XML} (AJAX) tehnologija je donijela promjene i omogućila učitavanje dijelova stranice kroz asinkrone zahtjeve prema poslužitelju ali AJAX nije riješio sve probleme dinamičkih web stranica. Iako web preglednici sa AJAX-om imaju mogućnost zatražiti podatke sa servera i dinamički izmijeniti stranicu kada ti podatci stignu i dalje nisu imali mehanizam kojim bi znali da li server uopće ima nove podatke u slučajevima kada je to potrebno, npr. chat aplikacije. U takvim slučajevima se koristila tzv. tehnika prozivanja.\citep{gravelle2009comet}
+{\em Asynchronous Javascript and XML} (AJAX) tehnologija je donijela promjene i omogućila učitavanje dijelova stranice kroz asinkrone zahtjeve prema poslužitelju ali AJAX nije riješio sve probleme dinamičkih web stranica. Iako web preglednici sa AJAX-om imaju mogućnost zatražiti podatke sa servera i dinamički izmijeniti stranicu kada ti podatci stignu i dalje nisu imali mehanizam kojim bi znali da li server uopće ima nove podatke u slučajevima kada je to potrebno, npr. chat aplikacije. U takvim slučajevima se koristila razne {\em Comet} tehnologije.\citep{gravelle2009comet}
 
 Comet je model web aplikacija u kojem se koristi HTTP veza za imitaciju poslužiteljskih dojava. U ovom modelu HTTP veza se održava živom kako bi se kroz tu vezu slale poslužiteljske dojave. Comet je u biti grupni naziv za sve tehnologije koje ostvaruju poslužiteljske dojave pomoću HTTP veze.
 
@@ -152,21 +152,21 @@ data: 113411
 \section{WebSocket}
 Povijesno, stvaranje web aplikacija koje trebaju dvosmjernu komunikaciju između klijenta i poslužitelja zahtijevala je korištenje protokola HTTP na način na koji HTTP nije namijenjen. Jednostavnije riješenje bi bilo da se koristi jedna TCP veza za slanje svih zahtjeva. Upravo na tome je radila {\em Internet Engineering Task Force} (IETF) skupina i objavila pod RFC 6455 specifikacijom. Protokol se zove WebSocket i zajedno sa WebSocket API-ijem daje alternativu tehnici prozivanja i sličnim tehnikama. WebSocket protokol pokušava riješiti ciljeve postojećih dvosmjernih HTTP tehnologija u kontekstu postojeće HTTP infrastrukture. Kao takav, osmišljen je za rad preko HTTP portova 80 i 443, kao i za podršku HTTP posrednika.
 
-Protokol trenutno podržavaju svi poznatiji Internet preglednici poput Firefox(PC i Android verzija), Chrome(PC i mobilna verzija), Safari(PC i iOS verzija), Opera(PC i mobilna verzija), Internet Explorer i Android browser.
+Protokol trenutno podržavaju svi poznatiji Internet preglednici poput Firefox (PC i Android verzija), Chrome (PC i mobilna verzija), Safari (PC i iOS verzija), Opera (PC i mobilna verzija), Internet Explorer i Android browser.
 
-Protokol se sastoji od dva dijela: rukovanja\engl{handshake} i prijenosa podataka. \citep{rfc6455}
+Protokol se sastoji od dva dijela: rukovanja \engl{handshake} i prijenosa podataka. \citep{rfc6455}
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{img/websocket.png}
+\includegraphics[width=12cm]{img/websocket.png}
 \caption{Dijagram razmjene dojava primjenom tehnologije {\em WebSocket}}
 \label{fig:websocket-image}
 \end{figure}
 
 \subsection{Rukovanje}
-Klijent tijekom rukovanja poslužitelju šalje zahtjev prikazan na slici \ref{lst:websocket-rukovanje-1} na koji poslužitelj odgovara odgovorom prikazanom na slici \ref{lst:websocket-rukovanje-2}. Klijent uključuje naziv poslužitelja u {\tt Host} zaglavlje rukovanja prema tako da i klijent i poslužitelj mogu potvrditi da se slažu o tome koji poslužitelj je u upotrebi.
+Klijent tijekom rukovanja poslužitelju šalje zahtjev na koji poslužitelj odgovara odgovorom prikazanom na slici \ref{lst:websocket-rukovanje}. Klijent uključuje naziv poslužitelja u {\tt Host} zaglavlje rukovanja prema tako da i klijent i poslužitelj mogu potvrditi da se slažu o tome koji poslužitelj je u upotrebi.
 
-\begin{figure}
+\begin{figure}[htb]
 \begin{lstlisting}
 GET /chat HTTP/1.1
 Host: server.example.com
@@ -176,21 +176,15 @@ Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
 Origin: http://example.com
 Sec-WebSocket-Protocol: chat, superchat
 Sec-WebSocket-Version: 13
-\end{lstlisting}
-\caption{Zahtjev klijenta tijekom rukovanja}
-\label{lst:websocket-rukovanje-1}
-\end{figure}
 
-\begin{figure}
-\begin{lstlisting}
 HTTP/1.1 101 Switching Protocols
 Upgrade: websocket
 Connection: Upgrade
 Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 Sec-WebSocket-Protocol: chat
 \end{lstlisting}
-\caption{Odgovor poslužitelja tijekom rukovanja}
-\label{lst:websocket-rukovanje-2}
+\caption{Zahtjev klijenta i odgovor poslužitelja  tijekom rukovanja}
+\label{lst:websocket-rukovanje}
 \end{figure}
 
 Dodatna polja zaglavlja koriste se za odabir opcija u protokolu {\em WebSocket}. Tipične opcije dostupne u ovoj verziji su selektor podprotokola {\tt Sec-WebSocket-Protocol}, popis ekstenzije podrške od strane klijenta {\tt Sec-WebSocket-Extensions}, zaglavlje {\tt Origin} itd. 
@@ -212,7 +206,7 @@ Prva verzija protokola nazvala se {\em Android Cloud to Device Messaging} (AC2DM
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{img/fcm.png}
+\includegraphics[width=10cm]{img/fcm.png}
 \caption{Princip rada Firebase Cloud Messaging usluge}
 \label{fig:fcm-image}
 \end{figure}
@@ -254,13 +248,13 @@ Atribut {\tt data} se koristi ukoliko se treba poslati veća količina podataka.
 
 Prvi pametni mobilni uređaj iPhone kompanije Apple pokrenuo je revoluciju u razvoju mobilnih uređaja i izmjenio način na koji korisnici koriste svoje mobilne uređaje. Veliki broj aplikacija se oslanjao na poslužiteljske dojave ali nije bilo adekvatnog rješenja. Apple se susreo sa istim problemima kao i njihov konkurent Google pa su se odlučili za izradu vlastite usluge za poslužiteljske dojave.
 
-2008 godine napravljen je sustav nazvan {\em Apple Push Notification Service} (APNs). Usluga podržava iOS pametne mobilne telefone, watchOS pametne satove, tvOS pametne televizore i macOS osobna i prijenosna računala.
+2008 godine napravljen je sustav nazvan {\em Apple Push Notification Service} (APNs). Usluga podržava pametne mobilne telefone sa iOS operacijskim sustavom, pametne satove sa watchOS operacijskim sustavom, pametne televizore sa tvOS operacijskim sustavom i macOS osobna i prijenosna računala.
 
 Princip rada je sličan {\em Firebase Cloud Messaging} usluzi. Klijenti se registriraju kod APNs poslužitelja i APNs vodi računa o vezama sa klijentima. Poslužitelj kada poželi poslati dojavu šalje zahtjev prema APNs poslužitelju koji šalje te dojave klijentima.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{img/apns.png}
+\includegraphics[width=12cm]{img/apns.png}
 \caption{Upravljanje tokenom uređaja koristeći APNs}
 \label{fig:apns-image}
 \end{figure}
@@ -288,7 +282,7 @@ JSON objekt se sastoji od atributa {\tt aps} i drugih atributa koji nemaju odre�
 \chapter{Arhitektura sustava za praćenje događaja}
 \label{chp:architecture}
 
-Ideja je napraviti aplikaciju koja korisniku omogućava praćenje događaja poput koncerata, rođendana i sl. i informacija vezanih uz taj događaj. Isto tako korisnici trebaju imati mogućnost stvaranja događaja za koje mogu definirati nekakve atribute poput naziva događaja, opisa, datuma i sl. Svi pratioci koji prate određeni događaj bi trebali dobiti dojavu kada se kreator događaja odluči izmijeniti neki od atributa događaja ili odluči poslati poruku vezanu uz taj događaj. Tako će se dobiti aplikacija koja će biti koristan alat pri organizaciji manjih događaja ali i većih događaja. Aplikacija se lako može pretvoriti u manju društvenu mrežu na kojoj će fokus biti na događajima, a ne na objavama kao većina društvenih mreža. Aplikacija se sastoji od poslužiteljskog dijela i klijentskog dijela.
+Cilj je oblikovati sustav koja korisniku omogućava praćenje događaja poput koncerata, rođendana i sl. i informacija vezanih uz taj događaj. Isto tako korisnici trebaju imati mogućnost stvaranja događaja za koje mogu definirati nekakve atribute poput naziva događaja, opisa, datuma i sl. Svi pratioci koji prate određeni događaj bi trebali dobiti dojavu kada se kreator događaja odluči izmijeniti neki od atributa događaja ili odluči poslati poruku vezanu uz taj događaj. Tako će se dobiti aplikacija koja će biti koristan alat pri organizaciji manjih događaja ali i većih događaja. Aplikacija se lako može pretvoriti u manju društvenu mrežu na kojoj će fokus biti na događajima, a ne na objavama kao većina društvenih mreža. Aplikacija se sastoji od poslužiteljskog dijela i klijentskog dijela.
 
 \section{Protokol za razmjenu podataka}
 Za funkcioniranje aplikacije mora se implementirati protokol za razmjenu podataka između poslužitelja i klijenta. Za implementaciju ove aplikacije potrebno je omogućiti dvosmjernu komunikaciju između klijenta i poslužitelja.
@@ -299,28 +293,62 @@ Korisnik koji je stvorio događaj može ih i promijeniti te poslati poruke vezan
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{img/event-subscription.png}
+\includegraphics[width=12cm]{img/event-subscription.png}
 \caption{Slanje događaja i pretplata na događaj}
 \label{fig:event-subscription-image}
 \end{figure}
 
 \section{Autentikacija}
-Aplikacija treba imati mogućnosti registracije i prijave kako bi raspoznala korisnike i pamtila njihove odabire. Svaki korisnik bi trebao imati jedinstveno korisničko ime. Prilikom otvaranja klijentske aplikacije korisnika se mora zatražiti da unese svoje korisničko ime i lozinku. Ako se radi o novom korisniku mora mu se ponuditi mogućnost registracije, a pri registraciji korisnici bi trebali unijeti svoje osobne podatke, korisničko ime njihovog budućeg računa i lozinku. Nakon što unese korisničko ime i lozinku korisnik pomoću klijentske aplikacije šalje zahtjev prema poslužitelju koji će utvrditi da li se radi o ispravnim podacima. 
+Sustav treba imati mogućnosti registracije i prijave kako bi raspoznala korisnike i pamtila njihove odabire. Svaki korisnik bi trebao imati jedinstveno korisničko ime. Prilikom otvaranja klijentske aplikacije korisnika se mora zatražiti da unese svoje korisničko ime i lozinku. Ako se radi o novom korisniku mora mu se ponuditi mogućnost registracije, a pri registraciji korisnici bi trebali unijeti svoje osobne podatke, korisničko ime njihovog budućeg računa i lozinku. Nakon što unese korisničko ime i lozinku korisnik pomoću klijentske aplikacije šalje zahtjev prema poslužitelju koji će utvrditi da li se radi o ispravnim podacima. 
 
-Ako se radi o ispravnim podacima klijent će podatke za prijavu privremeno spremiti na klijentski uređaj. Svaki put kada klijent želi stvoriti novi događaj, poslati poruku, pretplatiti se na događaj i sl. koristiti će te podatke kako bi poslužitelj mogao utvrditi da tu akciju obavlja korisnik koji je za to i autoriziran.
+Ako se radi o ispravnim podacima klijent će podatke za prijavu privremeno spremiti na klijentski uređaj. Svaki put kada klijent želi stvoriti novi događaj, poslati poruku, pretplatiti se na događaj i sl. sustav će od korisnika tražiti te podatke kako bi poslužitelj mogao utvrditi da tu akciju obavlja korisnik koji je za to i autoriziran.
 
 \section{Spremanje podataka}
-Poslužiteljski dio je odgovoran za spremanje svih podataka vezanih uz aplikaciju. Za spremanje podataka koristiti ćemo relacijske baze podataka, a za lakši rad i lakše pristupanje bazi podataka koristiti ćemo objektno-relacijsko mapiranje(engl. object-relational mapping).
+Poslužiteljski dio je odgovoran za spremanje svih podataka vezanih uz aplikaciju. Za spremanje podataka koristiti ćemo relacijske baze podataka. Podatci potrebni za rad ovog sustava navedeni su u tablici \ref{tbl:database} a njihove veze prikazane su ER dijagramom na slici \ref{fig:er-model-image}.
 
-\section{Poslužiteljske dojave}
-Poslužiteljske dojave se ovdje koriste kao način na koji se obavješćuje pretplatnika o izmjenama u događajima koje prate. Pošto izmjene mogu biti veoma bitne korisniku vrlo je bitno da se poruke dostave u što kraćem roku ali i da se ne izgube ukoliko klijent nije spojen na poslužitelj u tom trenutku(npr. korisnikov uređaj nema pristup internetu ili je ugašen).
+Podatci poput korisnika, događaja ili poruka su stvoreni od strane korisnika i klijent treba ponuditi tu funkcionalnost. Na primjer, tijekom registracije u bazu podataka spremaju se podatci koje je korisnik upisao.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{img/architecture.png}
-\caption{Prikaz arhitekture sustava za praćenje događaja}
-\label{fig:architecture-image}
+\includegraphics[width=12cm]{img/er.png}
+\caption{ER diagram poslužiteljske baze podataka}
+\label{fig:er-model-image}
 \end{figure}
+
+\begin{table}[htb]
+\caption{Popis podataka u bazi podataka}
+\label{tbl:database}
+\centering
+\begin{tabular}{lll} \hline
+Podatak & Atributi & Opis\\ \hline
+\multirow{7}{*}{Korisnik}
+& Id & Cjelobrojni broj \\
+& Korisničko ime & Tekst do 50 znakova \\
+& Lozinka & SHA1 hash od 40 znakova(160 bitova) \\
+& E-mail adresa & Tekst do 254 znakova \\
+& Ime & Tekst do 50 znakova \\
+& Prezime & Tekst do 50 znakova \\
+& Datum rođenja & Datum \\ \hline
+\multirow{6}{*}{Događaj}
+& Id & Jedinstveni cijelobrojni broj \\
+& Naslov & Tekst do 50 znakova \\
+& Opis & Tekst do 1024 znakova \\
+& Datum održavanja događaja & Datum i vrijeme \\
+& Datum dodavanja događaja & Datum i vrijeme \\ 
+& Kreator & Id korisnika koji je kreirao događaj \\ \hline
+\multirow{3}{*}{Poruka}
+& Id & Jedinstveni cijelobrojni broj \\
+& Sadržaj & Tekst do 1024 znakova \\
+& Događaj & Id događaja na koji je poruka poslana \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Poslužiteljske dojave}
+Poslužiteljske dojave se ovdje koriste kao način na koji se obavješćuje pretplatnike o izmjenama u događajima na koje su se prethodno pretplatili. Pošto izmjene mogu biti veoma bitne korisniku vrlo je bitno da se poruke dostave u što kraćem roku ali i da se ne izgube ukoliko klijent nije spojen na poslužitelj u tom trenutku(npr. korisnikov uređaj nema pristup internetu ili je ugašen).
+
+Za ostvarivanje poslužiteljskih dojava mogli bi koristiti tehniku prozivanja ili blokirajućeg prozivanja. Veliki problem kod ovog pristupa je ta što klijent troši podatke čak i kada nema dojava koje mu se trebaju poslati. Taj problem bismo mogli riješiti koristeći {\em WebSocket} protokol ali nam ostaju još dva velika problema. Korisnik u trenutku pojave dojave ne mora i često neće biti spojen na poslužitelja i u tom slučaju bi te dojave trebalo spremiti dok klijent ne bude u mogućnosti primiti te dojave. Drugi problem bi se pojavi tek ako bi sustav koristio veliki broj ljudi. Koristeći protokol {\em WebSocket} mora se održavati veza sa svakim uređajem i stoga zahtjeva dodatna ulaganja.
+
+Najbolje rješenje za ovaj sustav je integracija sa {\em Firebase Cloud Messaging} sustavom. Taj sustav ima već riješene prethodno nabrojane probleme, podržava širok spektar platformi i ne zahtjeva nikakva ulaganja pošto je u potpunosti besplatan.
 
 \chapter{Programsko ostvarenje sustava za praćenje događaja}
 \label{chp:implementation}
@@ -328,9 +356,16 @@ Poslužiteljske dojave se ovdje koriste kao način na koji se obavješćuje pret
 \section{Poslužiteljske dojave}
 Prilikom odabira tehnologije za poslužiteljske dojave velika pažnja je bila na brzini slanja dojava i načinu na koji određena tehnologija rješava problem korisnika koji nije spojen na poslužitelj u trenutku dolaska dojave. Isto tako bitno je koje sve platforme ta tehnologija podržava jer bi u budućnosti mogli poželjeti izraditi klijentsku aplikaciju za neku drugu platformu.
 
-Odabrao sam Firebase Cloud Messaging uslugu za poslužiteljske dojave. Firebase Cloud Messaging pruža mogućnost brzog slanja dojava, a ako dojavu nije moguće poslati u trenutku kada se dojava pojavila(npr. korisnik nije spojen na Internet ili je ugasio uređaj) FCM usluga će automatski spremiti dojavu i poslati je čim korisnik ponovo ostvari vezu sa FCM poslužiteljem. Velika prednost ove usluge je ta da je više-platformska. Ovaj servis podržava Android i iOS operativne sustave ali i klasične web aplikacije.
+Za ostvarenje poslužiteljskih dojava izabran je sustav za poslužiteljske dojave {\em Firebase Cloud Messaging} koji se koristi na način prikazan na slici \ref{fig:architecture-image}. {\em Firebase Cloud Messaging} sustav pruža mogućnost brzog slanja dojava, a ako dojavu nije moguće poslati u trenutku kada se dojava pojavila(npr. korisnik nije spojen na Internet ili je ugasio uređaj) FCM usluga će automatski spremiti dojavu i poslati je čim korisnik ponovo ostvari vezu sa FCM poslužiteljem. Velika prednost ove usluge je ta da je više-platformska. Ovaj servis podržava Android i iOS operativne sustave ali i klasične web aplikacije.
 
 Prije započinjanja implementacije FCM servisa na vlastitom poslužitelju sa službene stranice se mora dobiti ključ pomoću kojeg će FCM moći raspoznati našu aplikaciju od drugih. Taj ključ će se slati, zajedno sa ostalim informacijama za dojavu, FCM poslužitelju svaki put kada poslužitelj poželi poslati dojavu klijentu. Poslužitelju se mora omogućiti da se poveže sa FCM poslužiteljima pomoću HTTP veze i slanje ispravnih zahtjeva za slanje dojava.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=10cm]{img/architecture.png}
+\caption{Prikaz arhitekture sustava za praćenje događaja}
+\label{fig:architecture-image}
+\end{figure}
 
 \section{Klijent}
 Pri implementaciji klijenta korištena je Android platforma. Prednost naspram klasičnih web aplikacija je ta da Android klijent može imati stalne pozadinske procese koji će biti u mogućnosti primati dojave i kad korisnik ne koristi aplikaciju dok je prednost naspram iOS platforme ta da se pametni mobilni telefoni sa iOS operativnim sustavom manje koriste nego Android telefoni. U 4. kvartetu 2016. godine od svih prodanih mobilnih uređaja 81.7\% \citep{vincent2017} su bili pametni mobilni telefoni sa Android operativnim sustavom. Time Android dobiva prioritet pri izradi klijentske aplikacije.
@@ -423,48 +458,6 @@ U svakom trenutku, čak i kada je aplikacija ugašena, korisnik može primiti po
 
 \section{Poslužitelj}
 
-\begin{figure}[htb]
-\centering
-\includegraphics[width=\linewidth]{img/er.png}
-\caption{ER diagram poslužiteljske baze podataka}
-\label{fig:er-model-image}
-\end{figure}
-
-\begin{table}[htb]
-\caption{Popis podataka u bazi podataka}
-\label{tbl:database}
-\centering
-\begin{tabular}{lll} \hline
-Podatak & Atributi & Opis\\ \hline
-\multirow{7}{*}{Korisnik}
-& Id & Cjelobrojni broj \\
-& FCM token & FCM token do 200 znakova \\
-& Korisničko ime & Tekst do 50 znakova \\
-& Lozinka & SHA1 hash od 40 znakova(160 bitova) \\
-& E-mail adresa & Tekst do 254 znakova \\
-& Ime & Tekst do 50 znakova \\
-& Prezime & Tekst do 50 znakova \\
-& Datum rođenja & Datum \\ \hline
-\multirow{6}{*}{Događaj}
-& Id & Jedinstveni cijelobrojni broj \\
-& Naslov & Tekst do 50 znakova \\
-& Opis & Tekst do 1024 znakova \\
-& Datum održavanja događaja & Datum i vrijeme \\
-& Datum dodavanja događaja & Datum i vrijeme \\ 
-& Kreator & Id korisnika koji je kreirao događaj \\ \hline
-\multirow{3}{*}{Poruka}
-& Id & Jedinstveni cijelobrojni broj \\
-& Sadržaj & Tekst do 1024 znakova \\
-& Događaj & Id događaja na koji je poruka poslana \\ \hline
-\multirow{2}{*}{Kreatori}
-& Korisnik & Id korisnika kreatora \\
-& Događaj & Id događaja koji je korisnik stvorio \\ \hline
-\multirow{2}{*}{Pretplatnici}
-& Korisnik & Id korisnika pretplatnika \\
-& Događaj & Id događaja na koji je pretplaćen \\ \hline
-\end{tabular}
-\end{table}
-
 Pri implementaciji poslužiteljskog dijela aplikacije koristio sam Java EE tehnologije zbog toga što su Java programi više-platformski, ali i zbog česte uporabe ove platforme u implementaciji velikih sustava za razne kompanije. Zbog dobre zastupljenosti danas za u ovoj tehnologiji za neke česte probleme postoje dobra i isprobana rješenja što uvelike smanjuje količinu rada sa moje strane.
 
 Za prihvaćanje zahtjeva sa klijenta i razvoj API-a koristio sam Jersey. Jersey je implementacija JAX-RS(Java API for RESTful Web Services) specifikacije koja je napravljen za lakšu implementaciju REST i sličnih API-a. Ovom metodom ne moramo ništa eksplicitno podešavati osim što moramo označiti koja metoda će se pokrenuti za koji tip zahtjeva.
@@ -514,7 +507,7 @@ POST & /events/{Id}/messages & Stvara poruku za zadani događaj\\ \hline
 
 \chapter{Zaključak}
 
-U ovom završnom radu predstavljena su tehnologije za poslužiteljske dojave, od starijih rješenja koja su imitirala poslužiteljske dojave poput {\em long polling} tehnike do novih tehnologija poput protokola {\em WebSocket} i usluga poput usluge {\em Firebase Cloud Messaging}. Prikazano je kako se prvo problem poslužiteljskih dojava pokušao riješiti raznim domišljatim metodama korištenja HTTP-a, dok moderna rješenja uključuju nove protokole koji koriste TCP vezu za slanje u oba smjera.
+U ovom završnom radu predstavljene su tehnologije za poslužiteljske dojave, od starijih rješenja koja su imitirala poslužiteljske dojave poput tehnike {\em prozivanja} i {\em blokirajućeg prozivanja} do novih tehnologija poput protokola {\em Server Sent Events} i {\em WebSocket} te sustava poput {\em Firebase Cloud Messaging} i {\em Apple Push Notification Service}. Prikazano je kako se prvo problem poslužiteljskih dojava pokušao riješiti raznim domišljatim metodama korištenja HTTP-a, dok moderna rješenja uključuju nove protokole koji koriste TCP vezu za slanje u oba smjera.
 
 Prije izrade ovog rada malo toga sam znao o tome kako funkcioniraju poslužiteljske dojave i koje se tehnologije koriste. Tijekom pripreme i izrade ovog završnog rada naučio sam dosta o prijašnjim metodama imitacije poslužiteljskih dojava, ali i o modernim tehnologijama i uslugama. Osim učenja kroz proučavanje tehnologija sa uslugom {\em Firebase Cloud Messaging} sam se imao prilike više upoznati kroz praktični rad gdje sam paradigmu poslužiteljskih dojava koristio za dojavljivanja promjena na korisniku važnim događajima.
 
@@ -522,7 +515,7 @@ Prije izrade ovog rada malo toga sam znao o tome kako funkcioniraju poslužitelj
 \bibliographystyle{fer}
 
 \begin{sazetak}
-Dolazak pametnih mobilnih telefona ali i drugih prijenosnih uređaja uvelike je promijenio način korištenja aplikacija. Korisnici danas zahtjevaju da informacija dolazi do njih čim bude dostupna umjesto da je oni moraju zahtijevati. Kroz ovaj rad predstavljeno je par načina na koji je se ovaj problem pokušao riješiti. Jedan od načina, Firebase Cloud Messaging, sam implementirao na Android platformi kako bi bolje shvatio način rada i integracije takvih i sličnih sustava u vlastitu aplikaciju.
+Dolazak pametnih mobilnih telefona ali i drugih prijenosnih uređaja uvelike je promijenio način korištenja aplikacija. Korisnici danas zahtjevaju da informacija dolazi do njih čim bude dostupna umjesto da je oni moraju zahtijevati. Kroz ovaj rad predstavljeno je par načina na koji je se ovaj problem pokušao riješiti. Jedan od načina, {\em Firebase Cloud Messaging}, sam implementirao na Android platformi kako bi bolje shvatio način rada i integracije takvih i sličnih sustava u vlastitu aplikaciju.
 
 \kljucnerijeci{poslužiteljske dojave, web-usluga, Comet, Server Sent Events, WebSocket, Firebase Cloud Messaging, Apple Push Notification Service}
 \end{sazetak}
@@ -530,7 +523,7 @@ Dolazak pametnih mobilnih telefona ali i drugih prijenosnih uređaja uvelike je 
 % TODO: Navedite naslov na engleskom jeziku.
 \engtitle{Application of Server Push Notifications in Web Service Development}
 \begin{abstract}
-The arrival of smartphones and other portable devices has greatly changed the way the apps are used. Users today require information to be available as soon as it is available instead of having to request it manually. This work presents a few ways in which this problem has been tackled. I've implemented one of those services, Firebase Cloud Messaging, on an Android platform to better understand the way you work and integrate such and similar systems into your own application.
+The arrival of smartphones and other portable devices has greatly changed the way the apps are used. Users today require information to be available as soon as it is available instead of having to request it manually. This work presents a few ways in which this problem has been tackled. I've implemented one of those services, {\em Firebase Cloud Messaging}, on an Android platform to better understand the way you work and integrate such and similar systems into your own application.
 
 \keywords{push notifications, web-service, Comet, Server Sent Events, WebSocket, Firebase Cloud Messaging, Apple Push Notification Service}
 \end{abstract}

@@ -7,21 +7,20 @@
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Primjer kori\IeC {\v s}tenja {\tt EventSource} objekta za prikaz poslu\IeC {\v z}iteljskih dojava\relax }}{7}
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Primjeri SSE poruka\relax }}{7}
 \contentsline {figure}{\numberline {2.6}{\ignorespaces Dijagram razmjene dojava primjenom tehnologije {\em WebSocket}\relax }}{8}
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Zahtjev klijenta tijekom rukovanja\relax }}{9}
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Odgovor poslu\IeC {\v z}itelja tijekom rukovanja\relax }}{9}
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Princip rada Firebase Cloud Messaging usluge\relax }}{11}
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Primjer JSON objekta kojeg poslu\IeC {\v z}itelj \IeC {\v s}alje FCM poslu\IeC {\v z}itelju za slanje dojave\relax }}{12}
-\contentsline {figure}{\numberline {2.11}{\ignorespaces Upravljanje tokenom ure\IeC {\dj }aja koriste\IeC {\'c}i APNs\relax }}{13}
-\contentsline {figure}{\numberline {2.12}{\ignorespaces JSON objekt za \glqq tihu\grqq \ dojavu\relax }}{14}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Zahtjev klijenta i odgovor poslu\IeC {\v z}itelja tijekom rukovanja\relax }}{9}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Princip rada Firebase Cloud Messaging usluge\relax }}{11}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Primjer JSON objekta kojeg poslu\IeC {\v z}itelj \IeC {\v s}alje FCM poslu\IeC {\v z}itelju za slanje dojave\relax }}{12}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Upravljanje tokenom ure\IeC {\dj }aja koriste\IeC {\'c}i APNs\relax }}{13}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces JSON objekt za \glqq tihu\grqq \ dojavu\relax }}{14}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Slanje doga\IeC {\dj }aja i pretplata na doga\IeC {\dj }aj\relax }}{16}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Prikaz arhitekture sustava za pra\IeC {\'c}enje doga\IeC {\dj }aja\relax }}{17}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces ER diagram poslu\IeC {\v z}iteljske baze podataka\relax }}{17}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Prozor za prijavu\relax }}{20}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Prozor za registraciju\relax }}{20}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Glavni prozor\relax }}{21}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Prozor za prikaz profila korisnika\relax }}{22}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Prozor za prikaz profila doga\IeC {\dj }aja\relax }}{23}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces ER diagram poslu\IeC {\v z}iteljske baze podataka\relax }}{23}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Primjer zahtjeva za registraciju\relax }}{25}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Prikaz arhitekture sustava za pra\IeC {\'c}enje doga\IeC {\dj }aja\relax }}{20}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Prozor za prijavu\relax }}{21}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Prozor za registraciju\relax }}{22}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Glavni prozor\relax }}{23}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Prozor za prikaz profila korisnika\relax }}{24}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Prozor za prikaz profila doga\IeC {\dj }aja\relax }}{25}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Primjer zahtjeva za registraciju\relax }}{26}
 \addvspace {10\p@ }
