@@ -3,7 +3,7 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Dijagram razmjene dojava primjenom tehnike prozivanja\relax }}{3}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Dijagram razmjene dojava primjenom tehnike blokiraju\IeC {\'c}eg prozivanja\relax }}{4}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Dijagram razmjene dojava primjenom strujaju\IeC {\'c}e {\em Comet} tehnike\relax }}{5}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Dijagram razmjene dojava primjenom {\em Comet} tehnike strujanja\relax }}{5}
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Primjer kori\IeC {\v s}tenja {\tt EventSource} objekta za prikaz poslu\IeC {\v z}iteljskih dojava\relax }}{7}
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Primjeri SSE poruka\relax }}{7}
 \contentsline {figure}{\numberline {2.6}{\ignorespaces Dijagram razmjene dojava primjenom tehnologije {\em WebSocket}\relax }}{8}
